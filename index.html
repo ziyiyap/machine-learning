@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ML Roadmap — 80/20 Execution Plan</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,300&family=DM+Sans:wght@300;400;500&display=swap');
+
+  :root {
+    --bg: #0d0d0d;
+    --surface: #141414;
+    --card: #1a1a1a;
+    --border: #2a2a2a;
+    --accent: #e8c547;
+    --accent2: #4fc3a1;
+    --accent3: #e05a6b;
+    --text: #e8e4dc;
+    --text-muted: #7a7570;
+    --text-dim: #4a4540;
+    --nn-line: #e05a6b;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 48px 24px 120px;
+  }
+
+  /* ── HEADER ── */
+  .hero {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 48px;
+    margin-bottom: 64px;
+  }
+  .hero-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(36px, 6vw, 60px);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+  .hero-sub {
+    color: var(--text-muted);
+    font-size: 16px;
+    max-width: 600px;
+  }
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 24px;
+  }
+  .tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--text-muted);
+  }
+
+  /* ── STAGE CARDS ── */
+  .stage {
+    margin-bottom: 72px;
+    border-left: 2px solid var(--border);
+    padding-left: 32px;
+    position: relative;
+  }
+  .stage::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+  .stage.nn-start {
+    border-left-color: var(--nn-line);
+  }
+  .stage.nn-start::before {
+    background: var(--nn-line);
+    width: 12px;
+    height: 12px;
+    left: -7px;
+    box-shadow: 0 0 12px var(--nn-line);
+  }
+
+  .stage-header {
+    margin-bottom: 28px;
+  }
+  .stage-timeframe {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .stage-timeframe.nn-label {
+    color: var(--nn-line);
+  }
+  h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+  }
+  .difficulty {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .difficulty-bar {
+    display: flex;
+    gap: 3px;
+  }
+  .difficulty-pip {
+    width: 14px;
+    height: 4px;
+    background: var(--border);
+    border-radius: 1px;
+  }
+  .difficulty-pip.active { background: var(--accent); }
+  .difficulty-pip.active.high { background: var(--accent3); }
+
+  /* ── SECTION BLOCKS ── */
+  .block {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px 28px;
+    margin-bottom: 16px;
+  }
+  .block-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+  }
+  .block-label.preview { color: var(--accent2); }
+  .block-label.math { color: var(--accent); }
+  .block-label.mapping { color: #a78bfa; }
+  .block-label.project { color: var(--accent2); }
+  .block-label.functions { color: var(--accent); }
+  .block-label.understand { color: #f59e0b; }
+  .block-label.connects { color: var(--text-muted); }
+
+  p { margin-bottom: 10px; color: var(--text); }
+  p:last-child { margin-bottom: 0; }
+
+  ul, ol {
+    padding-left: 20px;
+    color: var(--text);
+  }
+  li { margin-bottom: 6px; }
+  li:last-child { margin-bottom: 0; }
+
+  /* ── CODE / MONO ── */
+  code {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    background: #1f1f1f;
+    border: 1px solid var(--border);
+    padding: 1px 5px;
+    border-radius: 2px;
+    color: var(--accent);
+  }
+  .code-block {
+    background: #111;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin: 10px 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: #b0b0b0;
+    line-height: 1.8;
+    white-space: pre;
+    overflow-x: auto;
+  }
+  .code-comment { color: var(--text-dim); }
+  .code-key { color: var(--accent2); }
+  .code-val { color: var(--accent); }
+
+  /* ── MAPPING PAIRS ── */
+  .mapping-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+  .mapping-math {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    background: #1a1500;
+    border: 1px solid #3a3000;
+    padding: 3px 8px;
+    border-radius: 2px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .mapping-arrow { color: var(--text-dim); flex-shrink: 0; }
+  .mapping-desc { color: var(--text-muted); font-size: 13px; }
+
+  /* ── GENIUS MOVE ── */
+  .genius-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .genius-step {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .genius-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    background: var(--accent);
+    color: #000;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    font-weight: 600;
+  }
+  .genius-step p { margin: 0; font-size: 14px; }
+
+  /* ── FUNCTION LIST ── */
+  .fn-item {
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    background: #111;
+  }
+  .fn-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--accent2);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .fn-sub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 8px;
+    margin-bottom: 4px;
+  }
+
+  /* ── NN WARNING BANNER ── */
+  .nn-banner {
+    border: 1px solid var(--nn-line);
+    background: rgba(224, 90, 107, 0.06);
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .nn-banner-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+  .nn-banner-text strong {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--nn-line);
+    margin-bottom: 6px;
+  }
+  .nn-banner-text p { font-size: 14px; color: var(--text-muted); margin: 0; }
+
+  /* ── READINESS CHECK ── */
+  .readiness {
+    border: 1px solid var(--accent);
+    background: rgba(232, 197, 71, 0.04);
+    border-radius: 4px;
+    padding: 32px 36px;
+    margin-top: 80px;
+  }
+  .readiness h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+  .readiness-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 600px) { .readiness-grid { grid-template-columns: 1fr; } }
+  .readiness-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+  .check { color: var(--accent2); font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+  .readiness-cta {
+    margin-top: 20px;
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--nn-line);
+    letter-spacing: 0.5px;
+  }
+
+  /* ── TOC ── */
+  .toc {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px 28px;
+    margin-bottom: 64px;
+  }
+  .toc h3 {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+  .toc-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .toc-row:last-child { border-bottom: none; }
+  .toc-week {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    width: 80px;
+    flex-shrink: 0;
+  }
+  .toc-title { color: var(--text-muted); }
+  .toc-row.nn-row .toc-title { color: var(--nn-line); font-weight: 500; }
+  .toc-nn-badge {
+    margin-left: auto;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    background: var(--nn-line);
+    color: #000;
+    padding: 1px 6px;
+    border-radius: 2px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  h4 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  strong { font-weight: 500; color: var(--text); }
+  em { font-style: italic; color: var(--text-muted); }
+
+  .pdf-ref {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    padding: 2px 6px;
+    border-radius: 2px;
+    display: inline-block;
+    margin-left: 4px;
+  }
+
+  hr { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ HERO ══════════════ -->
+<header class="hero">
+  <div class="hero-label">Machine Learning Roadmap — 80/20 Edition</div>
+  <h1>From Math to Model.<br/>No Detours.</h1>
+  <p class="hero-sub">
+    A structured, execution-first roadmap for a math-strong Python practitioner.
+    Every stage follows <strong>Preview → Math → Project</strong>.
+    Every algorithm follows <strong>Scratch → Library → Real Data</strong>.
+  </p>
+  <div class="hero-tags">
+    <span class="tag">~9 Weeks Total</span>
+    <span class="tag">Preview → Math → Project</span>
+    <span class="tag">Scratch → Library → Dataset</span>
+    <span class="tag">MML Book Referenced</span>
+    <span class="tag">Neural Networks: Week 8</span>
+  </div>
+</header>
+
+<!-- ══════════════ TOC ══════════════ -->
+<div class="toc">
+  <h3>Roadmap Overview</h3>
+  <div class="toc-row"><span class="toc-week">Days 1–3</span><span class="toc-title">Foundations: The ML Frame & Data Mindset</span></div>
+  <div class="toc-row"><span class="toc-week">Days 4–10</span><span class="toc-title">Linear Regression</span></div>
+  <div class="toc-row"><span class="toc-week">Days 11–18</span><span class="toc-title">Logistic Regression & Classification</span></div>
+  <div class="toc-row"><span class="toc-week">Days 19–25</span><span class="toc-title">Gradient Descent & Optimization</span></div>
+  <div class="toc-row"><span class="toc-week">Days 26–33</span><span class="toc-title">Decision Trees & Ensemble Methods</span></div>
+  <div class="toc-row"><span class="toc-week">Days 34–40</span><span class="toc-title">Dimensionality Reduction (PCA)</span></div>
+  <div class="toc-row"><span class="toc-week">Days 41–47</span><span class="toc-title">Support Vector Machines</span></div>
+  <div class="toc-row nn-row"><span class="toc-week">Days 48–63</span><span class="toc-title">Neural Networks — Feedforward</span><span class="toc-nn-badge">NN Start</span></div>
+  <div class="toc-row"><span class="toc-week">Days 64–70</span><span class="toc-title">Capstone: End-to-End ML Pipeline</span></div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     STAGE 1
+══════════════════════════════════════════════════════ -->
+<section class="stage">
+  <div class="stage-header">
+    <div class="stage-timeframe">Days 1–3</div>
+    <h2>Foundations: The ML Frame & Data Mindset</h2>
+    <div class="difficulty">
+      <div class="difficulty-bar">
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip"></div>
+        <div class="difficulty-pip"></div>
+        <div class="difficulty-pip"></div>
+        <div class="difficulty-pip"></div>
+        <div class="difficulty-pip"></div>
+        <div class="difficulty-pip"></div>
+        <div class="difficulty-pip"></div>
+        <div class="difficulty-pip"></div>
+      </div>
+      2/10 — Conceptual warm-up, no heavy math yet
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label preview">Step 0 — Preview (What You're Building)</div>
+    <p>You will build a <strong>manual EDA (Exploratory Data Analysis) pipeline</strong> on the classic Titanic dataset. The output is a clean Jupyter notebook that summarizes the dataset, identifies patterns, handles missing values, and produces a feature matrix ready for modeling. No algorithm yet — just rigorous data understanding.</p>
+  </div>
+
+  <div class="block">
+    <div class="block-label math">Step 1 — Math Preparation</div>
+    <p><strong>Source: MML Ch. 6.4 — Summary Statistics & Independence</strong> <span class="pdf-ref">§6.4</span></p>
+    <ul>
+      <li><strong>Mean (μ)</strong>: The center of a distribution — computed as the sum of values divided by count. Used to understand the "typical" data point.</li>
+      <li><strong>Variance (σ²)</strong>: Measures how spread out values are from the mean. High variance = noisier feature.</li>
+      <li><strong>Covariance</strong>: Captures how two variables move together. Positive = same direction; Negative = opposite; Zero = no linear relationship.</li>
+      <li><strong>Statistical Independence</strong>: Two variables are independent if knowing one gives no information about the other. Key for feature selection decisions.</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-label mapping">Math → Code Mapping</div>
+    <div class="mapping-row"><span class="mapping-math">Mean μ</span><span class="mapping-arrow">→</span><span class="mapping-desc"><code>df.mean()</code> — understand typical passenger age/fare</span></div>
+    <div class="mapping-row"><span class="mapping-math">Variance σ²</span><span class="mapping-arrow">→</span><span class="mapping-desc"><code>df.var()</code> — identify noisy vs stable features</span></div>
+    <div class="mapping-row"><span class="mapping-math">Covariance</span><span class="mapping-arrow">→</span><span class="mapping-desc"><code>df.corr()</code> + heatmap — find related feature pairs</span></div>
+    <div class="mapping-row"><span class="mapping-math">Independence</span><span class="mapping-arrow">→</span><span class="mapping-desc">Decide which features to drop before modeling</span></div>
+  </div>
+
+  <div class="block">
+    <div class="block-label project">Step 2 — Practical Project</div>
+    <p><strong>Project: Titanic EDA Pipeline</strong></p>
+    <div class="genius-steps">
+      <div class="genius-step"><div class="genius-num">1</div><p><strong>Scratch:</strong> Manually compute mean, variance, and a covariance matrix using NumPy only. Do not use Pandas describe().</p></div>
+      <div class="genius-step"><div class="genius-num">2</div><p><strong>Library:</strong> Replicate with <code>df.describe()</code>, <code>df.corr()</code>, Seaborn heatmap.</p></div>
+      <div class="genius-step"><div class="genius-num">3</div><p><strong>Real Dataset:</strong> Apply to Titanic CSV — identify top 3 features most correlated with survival, handle missing values in <code>Age</code> and <code>Cabin</code>, produce a clean feature matrix.</p></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label functions">Required Functions / Tools</div>
+    <div class="fn-item">
+      <div class="fn-name">np.cov()</div>
+      <div class="fn-sub">Syntax</div>
+      <div class="code-block"><span class="code-key">np.cov</span>(m, rowvar=<span class="code-val">False</span>)</div>
+      <div class="fn-sub">Example (unrelated)</div>
+      <div class="code-block">heights = <span class="code-val">np.array</span>([170, 175, 160, 185])
+weights = <span class="code-val">np.array</span>([65, 72, 58, 90])
+<span class="code-val">np.cov</span>([heights, weights])  <span class="code-comment"># 2x2 covariance matrix</span></div>
+    </div>
+    <div class="fn-item">
+      <div class="fn-name">df.fillna()</div>
+      <div class="fn-sub">Syntax</div>
+      <div class="code-block">df[<span class="code-val">"col"</span>].fillna(value_or_method)</div>
+      <div class="fn-sub">Example (unrelated)</div>
+      <div class="code-block">temps = pd.Series([22.0, <span class="code-val">None</span>, 24.0, <span class="code-val">None</span>, 26.0])
+temps.fillna(temps.mean())  <span class="code-comment"># fills with 24.0</span></div>
+    </div>
+    <div class="fn-item">
+      <div class="fn-name">sns.heatmap()</div>
+      <div class="fn-sub">Syntax</div>
+      <div class="code-block">sns.heatmap(data, annot=<span class="code-val">True</span>, fmt=<span class="code-val">".2f"</span>, cmap=<span class="code-val">"coolwarm"</span>)</div>
+      <div class="fn-sub">Example (unrelated)</div>
+      <div class="code-block">grades = pd.DataFrame({<span class="code-val">"Math"</span>: [90,80,70], <span class="code-val">"Science"</span>: [85,75,65]})
+sns.heatmap(grades.corr(), annot=<span class="code-val">True</span>)</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label understand">What You Must Understand</div>
+    <ul>
+      <li>Why raw correlation does NOT prove causation.</li>
+      <li>Why imputing missing values with the mean is a deliberate choice with tradeoffs (vs. median, vs. dropping rows).</li>
+      <li>What a feature matrix (X) and target vector (y) are — this is the universal input format for every ML algorithm you will ever build.</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-label connects">How This Connects</div>
+    <p><strong>Previous:</strong> Uses your existing NumPy/Pandas/Seaborn skills — zero new tooling needed.</p>
+    <p><strong>Next:</strong> The cleaned Titanic feature matrix from this stage becomes the input for Linear Regression in Days 4–10.</p>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════
+     STAGE 2
+══════════════════════════════════════════════════════ -->
+<section class="stage">
+  <div class="stage-header">
+    <div class="stage-timeframe">Days 4–10</div>
+    <h2>Linear Regression</h2>
+    <div class="difficulty">
+      <div class="difficulty-bar">
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip"></div>
+        <div class="difficulty-pip"></div>
+        <div class="difficulty-pip"></div>
+        <div class="difficulty-pip"></div>
+        <div class="difficulty-pip"></div>
+        <div class="difficulty-pip"></div>
+      </div>
+      4/10 — First real algorithm, math is foundational
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label preview">Step 0 — Preview</div>
+    <p>You will build a model that <strong>predicts a continuous value</strong> — specifically, house prices — given features like square footage and number of bedrooms. The model finds the best-fit straight line (or hyperplane in multiple dimensions) through data. The output is a number, not a category.</p>
+  </div>
+
+  <div class="block">
+    <div class="block-label math">Step 1 — Math Preparation</div>
+    <p><strong>Sources: MML Ch. 9.1–9.2 (Linear Regression), Ch. 2.2 (Matrices), Ch. 3.8 (Orthogonal Projections)</strong></p>
+    <ul>
+      <li><strong>The Linear Model:</strong> <em>ŷ = Xθ</em> where X is the feature matrix (n×d), θ is the parameter vector (d×1), and ŷ is the prediction vector. Matrix multiplication computes all predictions at once. <span class="pdf-ref">§9.1</span></li>
+      <li><strong>Mean Squared Error (MSE):</strong> Loss = (1/n)‖y − Xθ‖². You want to find θ that minimizes this. The norm here comes from the inner product on vector spaces. <span class="pdf-ref">§9.2</span></li>
+      <li><strong>Normal Equation (Closed-Form Solution):</strong> θ* = (XᵀX)⁻¹Xᵀy — this is maximum likelihood estimation for linear regression, and geometrically it is an orthogonal projection of y onto the column space of X. <span class="pdf-ref">§3.8, §9.2</span></li>
+      <li><strong>Matrix Transpose & Inverse:</strong> Xᵀ flips rows/columns; (XᵀX)⁻¹ undoes the transformation. Only works if XᵀX is invertible (columns of X are linearly independent). <span class="pdf-ref">§2.2</span></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-label mapping">Math → Code Mapping</div>
+    <div class="mapping-row"><span class="mapping-math">ŷ = Xθ</span><span class="mapping-arrow">→</span><span class="mapping-desc"><code>X @ theta</code> — matrix multiply features by weights for predictions</span></div>
+    <div class="mapping-row"><span class="mapping-math">‖y − ŷ‖²</span><span class="mapping-arrow">→</span><span class="mapping-desc"><code>np.mean((y - y_hat)**2)</code> — the MSE loss to minimize</span></div>
+    <div class="mapping-row"><span class="mapping-math">Normal Equation</span><span class="mapping-arrow">→</span><span class="mapping-desc"><code>np.linalg.inv(X.T @ X) @ X.T @ y</code> — exact solution</span></div>
+    <div class="mapping-row"><span class="mapping-math">XᵀX invertible?</span><span class="mapping-arrow">→</span><span class="mapping-desc">Check <code>np.linalg.matrix_rank(X)</code> — equals number of features</span></div>
+  </div>
+
+  <div class="block">
+    <div class="block-label project">Step 2 — Practical Project</div>
+    <p><strong>Project: House Price Predictor</strong></p>
+    <div class="genius-steps">
+      <div class="genius-step"><div class="genius-num">1</div><p><strong>Scratch:</strong> Implement the Normal Equation in pure NumPy. Add a bias column of 1s to X. Compute θ* directly, then predict.</p></div>
+      <div class="genius-step"><div class="genius-num">2</div><p><strong>Library:</strong> Replicate with <code>sklearn.linear_model.LinearRegression</code>. Verify that <code>.coef_</code> matches your θ* from scratch.</p></div>
+      <div class="genius-step"><div class="genius-num">3</div><p><strong>Real Dataset:</strong> Apply to the California Housing dataset (<code>sklearn.datasets.fetch_california_housing</code>). Evaluate with MSE and R² score. Plot residuals.</p></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label functions">Required Functions / Tools</div>
+    <div class="fn-item">
+      <div class="fn-name">np.linalg.inv()</div>
+      <div class="fn-sub">Syntax</div>
+      <div class="code-block"><span class="code-key">np.linalg.inv</span>(a)</div>
+      <div class="fn-sub">Example (unrelated)</div>
+      <div class="code-block">A = np.array([[2, 1], [5, 3]])
+A_inv = np.linalg.inv(A)
+<span class="code-comment"># A @ A_inv ≈ identity matrix</span></div>
+    </div>
+    <div class="fn-item">
+      <div class="fn-name">np.column_stack()</div>
+      <div class="fn-sub">Syntax</div>
+      <div class="code-block"><span class="code-key">np.column_stack</span>(tup)</div>
+      <div class="fn-sub">Example (unrelated)</div>
+      <div class="code-block">ones = np.ones(5)
+ages = np.array([22, 25, 30, 35, 40])
+X = np.column_stack([ones, ages])
+<span class="code-comment"># shape: (5, 2) — bias column + feature column</span></div>
+    </div>
+    <div class="fn-item">
+      <div class="fn-name">sklearn LinearRegression</div>
+      <div class="fn-sub">Syntax</div>
+      <div class="code-block"><span class="code-key">from</span> sklearn.linear_model <span class="code-key">import</span> LinearRegression
+model = LinearRegression()
+model.fit(X_train, y_train)
+preds = model.predict(X_test)</div>
+      <div class="fn-sub">Example (unrelated)</div>
+      <div class="code-block">study_hrs = np.array([[1],[2],[3],[4],[5]])
+scores = np.array([50, 60, 65, 75, 85])
+model.fit(study_hrs, scores)
+model.predict([[6]])  <span class="code-comment"># → [~91]</span></div>
+    </div>
+    <div class="fn-item">
+      <div class="fn-name">r2_score()</div>
+      <div class="fn-sub">Syntax</div>
+      <div class="code-block"><span class="code-key">from</span> sklearn.metrics <span class="code-key">import</span> r2_score
+r2_score(y_true, y_pred)</div>
+      <div class="fn-sub">Example (unrelated)</div>
+      <div class="code-block">y_true = [3, 5, 4, 7]
+y_pred = [2.8, 5.2, 3.9, 7.1]
+r2_score(y_true, y_pred)  <span class="code-comment"># → ~0.99</span></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label understand">What You Must Understand</div>
+    <ul>
+      <li>Why the Normal Equation fails when features are collinear (XᵀX becomes singular/non-invertible).</li>
+      <li>The difference between R² and MSE — one is scale-independent, one is not.</li>
+      <li>Why adding a bias column of 1s is not optional — it allows the model to learn an offset (intercept), not just a slope through the origin.</li>
+      <li>That the Normal Equation is O(d³) — it gets slow with many features. This motivates gradient descent in Days 19–25.</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-label connects">How This Connects</div>
+    <p><strong>Previous:</strong> Your cleaned feature matrix from EDA is the direct input here.</p>
+    <p><strong>Next:</strong> Logistic Regression reuses the linear model <em>Xθ</em> but wraps it in a sigmoid — same structure, different output layer.</p>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════
+     STAGE 3
+══════════════════════════════════════════════════════ -->
+<section class="stage">
+  <div class="stage-header">
+    <div class="stage-timeframe">Days 11–18</div>
+    <h2>Logistic Regression & Binary Classification</h2>
+    <div class="difficulty">
+      <div class="difficulty-bar">
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip"></div>
+        <div class="difficulty-pip"></div>
+        <div class="difficulty-pip"></div>
+        <div class="difficulty-pip"></div>
+        <div class="difficulty-pip"></div>
+      </div>
+      5/10 — Probability + new loss function, first true classifier
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label preview">Step 0 — Preview</div>
+    <p>You will build a model that <strong>classifies emails as spam or not spam</strong> (or survivors vs. non-survivors on Titanic). Instead of predicting a number, this model outputs a <em>probability</em> between 0 and 1, then applies a threshold to make a decision. This is the foundation of all binary classifiers.</p>
+  </div>
+
+  <div class="block">
+    <div class="block-label math">Step 1 — Math Preparation</div>
+    <p><strong>Sources: MML Ch. 6.6 (Exponential Family, Sigmoid), Ch. 6.3 (Bayes' Theorem), Ch. 8.3 (Parameter Estimation via MLE)</strong></p>
+    <ul>
+      <li><strong>Sigmoid Function:</strong> σ(z) = 1/(1+e⁻ᶻ) — squashes any real number into (0,1), interpreted as a probability. This is the link function that connects the linear model to a probability output. <span class="pdf-ref">§6.6</span></li>
+      <li><strong>Binary Cross-Entropy Loss:</strong> L = −[y·log(p) + (1−y)·log(1−p)] — derived from maximizing likelihood of Bernoulli outcomes. This replaces MSE because MSE is non-convex for classification. <span class="pdf-ref">§8.3</span></li>
+      <li><strong>Maximum Likelihood Estimation (MLE):</strong> Find θ that maximizes the probability of observing the training labels given the features. Minimizing cross-entropy is equivalent to maximizing log-likelihood. <span class="pdf-ref">§8.3.1</span></li>
+      <li><strong>Bayes' Theorem Connection:</strong> The posterior probability P(class|features) is what we compute — this is Bayesian reasoning applied to classification. <span class="pdf-ref">§6.3</span></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-label mapping">Math → Code Mapping</div>
+    <div class="mapping-row"><span class="mapping-math">σ(Xθ)</span><span class="mapping-arrow">→</span><span class="mapping-desc"><code>1 / (1 + np.exp(-X @ theta))</code> — forward pass, output = probability</span></div>
+    <div class="mapping-row"><span class="mapping-math">Cross-Entropy</span><span class="mapping-arrow">→</span><span class="mapping-desc"><code>-np.mean(y*np.log(p) + (1-y)*np.log(1-p))</code> — loss function</span></div>
+    <div class="mapping-row"><span class="mapping-math">Gradient of Loss</span><span class="mapping-arrow">→</span><span class="mapping-desc"><code>X.T @ (p - y) / n</code> — exact gradient (derived from MLE)</span></div>
+    <div class="mapping-row"><span class="mapping-math">Decision Boundary</span><span class="mapping-arrow">→</span><span class="mapping-desc"><code>(p >= 0.5).astype(int)</code> — threshold at 0.5 by default</span></div>
+  </div>
+
+  <div class="block">
+    <div class="block-label project">Step 2 — Practical Project</div>
+    <p><strong>Project: Spam Classifier / Titanic Survival Predictor</strong></p>
+    <div class="genius-steps">
+      <div class="genius-step"><div class="genius-num">1</div><p><strong>Scratch:</strong> Implement logistic regression with gradient descent in NumPy. Write the sigmoid, loss, and gradient update loop manually.</p></div>
+      <div class="genius-step"><div class="genius-num">2</div><p><strong>Library:</strong> Replicate with <code>sklearn.linear_model.LogisticRegression</code>. Match predictions.</p></div>
+      <div class="genius-step"><div class="genius-num">3</div><p><strong>Real Dataset:</strong> Apply to your cleaned Titanic dataset from Day 3. Evaluate with accuracy, precision, recall, F1, and a confusion matrix. Adjust the decision threshold and observe the tradeoff.</p></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label functions">Required Functions / Tools</div>
+    <div class="fn-item">
+      <div class="fn-name">sklearn confusion_matrix()</div>
+      <div class="fn-sub">Syntax</div>
+      <div class="code-block"><span class="code-key">from</span> sklearn.metrics <span class="code-key">import</span> confusion_matrix
+confusion_matrix(y_true, y_pred)</div>
+      <div class="fn-sub">Example (unrelated)</div>
+      <div class="code-block">y_true = [1, 0, 1, 1, 0, 0]
+y_pred = [1, 0, 0, 1, 1, 0]
+confusion_matrix(y_true, y_pred)
+<span class="code-comment"># [[TN, FP], [FN, TP]]</span></div>
+    </div>
+    <div class="fn-item">
+      <div class="fn-name">classification_report()</div>
+      <div class="fn-sub">Syntax</div>
+      <div class="code-block"><span class="code-key">from</span> sklearn.metrics <span class="code-key">import</span> classification_report
+<span class="code-key">print</span>(classification_report(y_true, y_pred))</div>
+      <div class="fn-sub">Example (unrelated)</div>
+      <div class="code-block">y_true = [1, 0, 1, 0, 1]
+y_pred = [1, 1, 1, 0, 0]
+<span class="code-key">print</span>(classification_report(y_true, y_pred))
+<span class="code-comment"># Precision, Recall, F1 per class</span></div>
+    </div>
+    <div class="fn-item">
+      <div class="fn-name">train_test_split()</div>
+      <div class="fn-sub">Syntax</div>
+      <div class="code-block"><span class="code-key">from</span> sklearn.model_selection <span class="code-key">import</span> train_test_split
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=<span class="code-val">0.2</span>, random_state=<span class="code-val">42</span>)</div>
+      <div class="fn-sub">Example (unrelated)</div>
+      <div class="code-block">X = np.arange(100).reshape(50, 2)
+y = np.random.randint(0, 2, 50)
+X_tr, X_te, y_tr, y_te = train_test_split(X, y, test_size=<span class="code-val">0.2</span>)
+<span class="code-comment"># X_tr.shape → (40, 2), X_te.shape → (10, 2)</span></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label understand">What You Must Understand</div>
+    <ul>
+      <li>Why accuracy is a misleading metric on imbalanced datasets (e.g., 95% negative class).</li>
+      <li>The precision-recall tradeoff — adjusting the threshold does not change the model, only how you interpret its output.</li>
+      <li>Why you cannot use MSE for classification — it creates a non-convex loss surface, so gradient descent can get stuck.</li>
+      <li>That logistic regression is a <em>linear</em> classifier — its decision boundary is always a straight line (or hyperplane).</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-label connects">How This Connects</div>
+    <p><strong>Previous:</strong> Directly extends Linear Regression — same Xθ structure, new output function (sigmoid) and new loss (cross-entropy).</p>
+    <p><strong>Next:</strong> Gradient descent was used informally here. Days 19–25 formalize it — you'll understand exactly why the gradient update works and how to tune learning rate and stopping criteria.</p>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════
+     STAGE 4
+══════════════════════════════════════════════════════ -->
+<section class="stage">
+  <div class="stage-header">
+    <div class="stage-timeframe">Days 19–25</div>
+    <h2>Gradient Descent & Optimization</h2>
+    <div class="difficulty">
+      <div class="difficulty-bar">
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip"></div>
+        <div class="difficulty-pip"></div>
+        <div class="difficulty-pip"></div>
+        <div class="difficulty-pip"></div>
+      </div>
+      6/10 — The engine behind all of ML, including neural networks
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label preview">Step 0 — Preview</div>
+    <p>You will build a <strong>pure gradient descent optimizer from scratch</strong>, then apply it to both linear and logistic regression instead of using the Normal Equation or sklearn's solver. You will visualize the loss surface and watch the algorithm descend to the minimum. This is the single most important algorithm in all of machine learning.</p>
+  </div>
+
+  <div class="block">
+    <div class="block-label math">Step 1 — Math Preparation</div>
+    <p><strong>Sources: MML Ch. 5.1–5.3 (Vector Calculus), Ch. 7.1 (Gradient Descent)</strong></p>
+    <ul>
+      <li><strong>Partial Derivative:</strong> ∂L/∂θⱼ — the rate of change of loss with respect to one weight. Tells you which direction to move that specific weight to reduce loss. <span class="pdf-ref">§5.2</span></li>
+      <li><strong>Gradient Vector:</strong> ∇L = [∂L/∂θ₁, ..., ∂L/∂θd] — stacks all partial derivatives. Points in the direction of steepest ascent. Gradient descent moves in the opposite direction. <span class="pdf-ref">§5.2, §7.1</span></li>
+      <li><strong>Gradient Descent Update Rule:</strong> θ ← θ − α·∇L — subtract a fraction of the gradient at each step. α (learning rate) controls step size. <span class="pdf-ref">§7.1</span></li>
+      <li><strong>Convergence:</strong> Gradient descent converges when ‖∇L‖ ≈ 0 (flat region). Convex loss surfaces guarantee a global minimum; non-convex ones do not. <span class="pdf-ref">§7.1, §7.3</span></li>
+      <li><strong>Stochastic vs Batch:</strong> BGD uses all data for each update; SGD uses one sample; Mini-batch uses a small batch. SGD adds noise that helps escape local minima. <span class="pdf-ref">§7.1</span></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-label mapping">Math → Code Mapping</div>
+    <div class="mapping-row"><span class="mapping-math">∂L/∂θ</span><span class="mapping-arrow">→</span><span class="mapping-desc"><code>grad = X.T @ (y_hat - y) / n</code> — gradient for linear/logistic regression</span></div>
+    <div class="mapping-row"><span class="mapping-math">θ ← θ − α·∇L</span><span class="mapping-arrow">→</span><span class="mapping-desc"><code>theta -= lr * grad</code> — the update step, repeated for n_epochs</span></div>
+    <div class="mapping-row"><span class="mapping-math">Convergence</span><span class="mapping-arrow">→</span><span class="mapping-desc"><code>if np.linalg.norm(grad) < tol: break</code> — stopping criterion</span></div>
+    <div class="mapping-row"><span class="mapping-math">Loss History</span><span class="mapping-arrow">→</span><span class="mapping-desc"><code>losses.append(loss)</code> then <code>plt.plot(losses)</code> — visualize convergence</span></div>
+  </div>
+
+  <div class="block">
+    <div class="block-label project">Step 2 — Practical Project</div>
+    <p><strong>Project: Build a Custom Gradient Descent Optimizer</strong></p>
+    <div class="genius-steps">
+      <div class="genius-step"><div class="genius-num">1</div><p><strong>Scratch:</strong> Write a generic <code>GradientDescent</code> class in NumPy. It should support batch GD, SGD, and mini-batch GD modes. Apply to linear regression (MSE loss). Plot the loss curve.</p></div>
+      <div class="genius-step"><div class="genius-num">2</div><p><strong>Library:</strong> Apply <code>sklearn.linear_model.SGDRegressor</code> and <code>SGDClassifier</code>. Compare convergence speed with your implementation.</p></div>
+      <div class="genius-step"><div class="genius-num">3</div><p><strong>Real Dataset:</strong> Apply your optimizer to logistic regression on Titanic. Sweep learning rates [0.001, 0.01, 0.1, 1.0] and plot all 4 loss curves on one chart. Identify which learning rate diverges and which converges slowest.</p></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label functions">Required Functions / Tools</div>
+    <div class="fn-item">
+      <div class="fn-name">np.random.shuffle()</div>
+      <div class="fn-sub">Syntax</div>
+      <div class="code-block"><span class="code-key">np.random.shuffle</span>(x)  <span class="code-comment"># in-place</span></div>
+      <div class="fn-sub">Example (unrelated)</div>
+      <div class="code-block">deck = np.arange(52)
+np.random.shuffle(deck)
+<span class="code-comment"># deck is now randomly ordered — used before each SGD epoch</span></div>
+    </div>
+    <div class="fn-item">
+      <div class="fn-name">np.linalg.norm()</div>
+      <div class="fn-sub">Syntax</div>
+      <div class="code-block"><span class="code-key">np.linalg.norm</span>(x, ord=<span class="code-val">None</span>)</div>
+      <div class="fn-sub">Example (unrelated)</div>
+      <div class="code-block">v = np.array([3.0, 4.0])
+np.linalg.norm(v)  <span class="code-comment"># → 5.0 (Euclidean norm)</span>
+np.linalg.norm(v, ord=<span class="code-val">1</span>)  <span class="code-comment"># → 7.0 (Manhattan norm)</span></div>
+    </div>
+    <div class="fn-item">
+      <div class="fn-name">StandardScaler()</div>
+      <div class="fn-sub">Syntax</div>
+      <div class="code-block"><span class="code-key">from</span> sklearn.preprocessing <span class="code-key">import</span> StandardScaler
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)</div>
+      <div class="fn-sub">Example (unrelated)</div>
+      <div class="code-block">salaries = np.array([[50000],[75000],[100000],[200000]])
+scaler = StandardScaler()
+scaler.fit_transform(salaries)
+<span class="code-comment"># values centered at 0, std=1 — CRITICAL before gradient descent</span></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label understand">What You Must Understand</div>
+    <ul>
+      <li>Why feature scaling (StandardScaler) is not optional for gradient descent — unscaled features cause elliptical loss surfaces where GD oscillates instead of converging.</li>
+      <li>The difference between an epoch (one full pass over data) and an iteration (one weight update step).</li>
+      <li>Why too-large a learning rate causes divergence and too-small causes very slow convergence.</li>
+      <li>This is the exact same mechanism used to train neural networks — backpropagation is just an efficient way to compute these same gradients.</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-label connects">How This Connects</div>
+    <p><strong>Previous:</strong> Formalizes the gradient updates you used informally in logistic regression. Now you understand WHY they work.</p>
+    <p><strong>Next:</strong> Decision Trees (Days 26–33) intentionally break from gradient descent — they use a completely different optimization strategy (greedy splitting), which shows you there are multiple roads to learning.</p>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════
+     STAGE 5
+══════════════════════════════════════════════════════ -->
+<section class="stage">
+  <div class="stage-header">
+    <div class="stage-timeframe">Days 26–33</div>
+    <h2>Decision Trees & Ensemble Methods</h2>
+    <div class="difficulty">
+      <div class="difficulty-bar">
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip"></div>
+        <div class="difficulty-pip"></div>
+        <div class="difficulty-pip"></div>
+        <div class="difficulty-pip"></div>
+      </div>
+      6/10 — No gradient needed, but ensemble intuition is tricky
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label preview">Step 0 — Preview</div>
+    <p>You will build a model that predicts loan default risk. A Decision Tree works like a flowchart — it asks a series of yes/no questions about the data to make decisions. Then you'll combine hundreds of trees (Random Forest) to build a more robust, powerful predictor. This is the most used algorithm in industry for tabular data.</p>
+  </div>
+
+  <div class="block">
+    <div class="block-label math">Step 1 — Math Preparation</div>
+    <p><strong>Sources: MML Ch. 6.2 (Discrete Probabilities), Ch. 6.3 (Sum Rule)</strong></p>
+    <ul>
+      <li><strong>Entropy:</strong> H(S) = −Σ pᵢ·log₂(pᵢ) — measures impurity of a set. A node with 50% class A / 50% class B is maximally impure (high entropy). A pure node (all one class) has entropy 0. <span class="pdf-ref">§6.2</span></li>
+      <li><strong>Information Gain:</strong> IG = H(parent) − weighted sum of H(children) — the quality of a split. Greedy: at each node, pick the feature/threshold that maximizes IG.</li>
+      <li><strong>Gini Impurity:</strong> G = 1 − Σ pᵢ² — alternative to entropy, slightly faster to compute. Both measure how mixed the classes are at a node.</li>
+      <li><strong>Bagging (Bootstrap Aggregating):</strong> Train k trees on k different bootstrap samples of data. Average predictions. Reduces variance without increasing bias — the core of Random Forest. <span class="pdf-ref">§6.3 sum rule context</span></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-label mapping">Math → Code Mapping</div>
+    <div class="mapping-row"><span class="mapping-math">Entropy H(S)</span><span class="mapping-arrow">→</span><span class="mapping-desc"><code>-np.sum(p * np.log2(p + 1e-9))</code> — impurity score at a node</span></div>
+    <div class="mapping-row"><span class="mapping-math">Information Gain</span><span class="mapping-arrow">→</span><span class="mapping-desc">Loop over all features/thresholds, pick highest IG — the splitting criterion</span></div>
+    <div class="mapping-row"><span class="mapping-math">Bootstrap Sample</span><span class="mapping-arrow">→</span><span class="mapping-desc"><code>np.random.choice(n, n, replace=True)</code> — sample indices with replacement</span></div>
+    <div class="mapping-row"><span class="mapping-math">Ensemble Average</span><span class="mapping-arrow">→</span><span class="mapping-desc"><code>np.mean([tree.predict(X) for tree in forest], axis=0)</code></span></div>
+  </div>
+
+  <div class="block">
+    <div class="block-label project">Step 2 — Practical Project</div>
+    <p><strong>Project: Loan Default Risk Predictor</strong></p>
+    <div class="genius-steps">
+      <div class="genius-step"><div class="genius-num">1</div><p><strong>Scratch:</strong> Implement a Decision Tree using recursive splitting. Write the entropy and information gain functions. Stop splitting when max_depth is reached or a node is pure.</p></div>
+      <div class="genius-step"><div class="genius-num">2</div><p><strong>Library:</strong> Use <code>sklearn.tree.DecisionTreeClassifier</code> and <code>sklearn.ensemble.RandomForestClassifier</code>. Visualize the tree with <code>plot_tree()</code>.</p></div>
+      <div class="genius-step"><div class="genius-num">3</div><p><strong>Real Dataset:</strong> Apply to the UCI Credit Card Default dataset. Extract <code>feature_importances_</code> from Random Forest. Compare your scratch tree's accuracy vs. 100-tree Random Forest on test set.</p></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label functions">Required Functions / Tools</div>
+    <div class="fn-item">
+      <div class="fn-name">np.random.choice() with replace=True</div>
+      <div class="fn-sub">Syntax</div>
+      <div class="code-block"><span class="code-key">np.random.choice</span>(a, size, replace=<span class="code-val">True</span>)</div>
+      <div class="fn-sub">Example (unrelated)</div>
+      <div class="code-block">voters = np.arange(1000)
+sample = np.random.choice(voters, size=<span class="code-val">1000</span>, replace=<span class="code-val">True</span>)
+<span class="code-comment"># Bootstrap sample — same size, some indices repeated</span></div>
+    </div>
+    <div class="fn-item">
+      <div class="fn-name">RandomForestClassifier</div>
+      <div class="fn-sub">Syntax</div>
+      <div class="code-block"><span class="code-key">from</span> sklearn.ensemble <span class="code-key">import</span> RandomForestClassifier
+rf = RandomForestClassifier(n_estimators=<span class="code-val">100</span>, max_depth=<span class="code-val">5</span>, random_state=<span class="code-val">42</span>)
+rf.fit(X_train, y_train)
+rf.feature_importances_</div>
+      <div class="fn-sub">Example (unrelated)</div>
+      <div class="code-block">rf = RandomForestClassifier(n_estimators=<span class="code-val">50</span>)
+rf.fit(iris.data, iris.target)
+<span class="code-key">print</span>(rf.feature_importances_)  <span class="code-comment"># relative importance per feature</span></div>
+    </div>
+    <div class="fn-item">
+      <div class="fn-name">plot_tree()</div>
+      <div class="fn-sub">Syntax</div>
+      <div class="code-block"><span class="code-key">from</span> sklearn.tree <span class="code-key">import</span> plot_tree
+plot_tree(dt_model, feature_names=X.columns, class_names=[<span class="code-val">"No"</span>,<span class="code-val">"Yes"</span>], filled=<span class="code-val">True</span>)</div>
+      <div class="fn-sub">Example (unrelated)</div>
+      <div class="code-block">dt = DecisionTreeClassifier(max_depth=<span class="code-val">3</span>).fit(iris.data, iris.target)
+plt.figure(figsize=(<span class="code-val">12</span>,<span class="code-val">6</span>))
+plot_tree(dt, filled=<span class="code-val">True</span>)
+plt.show()</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label understand">What You Must Understand</div>
+    <ul>
+      <li>Why a single deep Decision Tree overfits — it memorizes the training data. Shallow trees underfit. This is the bias-variance tradeoff made concrete.</li>
+      <li>Random Forests reduce variance, not bias — they average out the noise across many trees.</li>
+      <li>Feature importance from Random Forests is not causal — it tells you predictive power, not causal relationships.</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-label connects">How This Connects</div>
+    <p><strong>Previous:</strong> Deliberately contrasts with gradient-based methods — trees use greedy search, not calculus. Two fundamentally different optimization philosophies.</p>
+    <p><strong>Next:</strong> PCA (Days 34–40) is needed when your feature matrix has too many dimensions. Trees gave you feature importance as one solution; PCA gives you a mathematical one.</p>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════
+     STAGE 6
+══════════════════════════════════════════════════════ -->
+<section class="stage">
+  <div class="stage-header">
+    <div class="stage-timeframe">Days 34–40</div>
+    <h2>Dimensionality Reduction with PCA</h2>
+    <div class="difficulty">
+      <div class="difficulty-bar">
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip"></div>
+        <div class="difficulty-pip"></div>
+        <div class="difficulty-pip"></div>
+      </div>
+      7/10 — Eigendecomposition is the deepest math so far
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label preview">Step 0 — Preview</div>
+    <p>You will compress a high-dimensional image dataset (e.g., face images with 1000+ pixel features) into 2 dimensions and then visualize it in a 2D scatter plot where similar images cluster together. PCA is the most mathematically elegant algorithm in classical ML — it finds the directions in data where variation is maximized.</p>
+  </div>
+
+  <div class="block">
+    <div class="block-label math">Step 1 — Math Preparation</div>
+    <p><strong>Sources: MML Ch. 10.1–10.4 (PCA), Ch. 4.2 (Eigenvalues/Eigenvectors), Ch. 3.2 (Inner Products)</strong></p>
+    <ul>
+      <li><strong>Covariance Matrix:</strong> S = (1/n)XᵀX (after centering X). This d×d matrix encodes how all feature pairs co-vary. PCA is a rotation that diagonalizes this matrix. <span class="pdf-ref">§10.2</span></li>
+      <li><strong>Eigenvalues & Eigenvectors:</strong> Sv = λv — vectors that only scale under the transformation, not rotate. The eigenvector with the largest eigenvalue points in the direction of maximum variance. <span class="pdf-ref">§4.2</span></li>
+      <li><strong>Principal Components:</strong> The top k eigenvectors form a new basis. Projecting data onto this basis reduces dimensions while retaining maximum variance. <span class="pdf-ref">§10.2, §10.3</span></li>
+      <li><strong>Explained Variance Ratio:</strong> λᵢ / Σλⱼ — the fraction of total variance captured by component i. Used to decide how many components to keep (e.g., 95% threshold). <span class="pdf-ref">§10.4</span></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-label mapping">Math → Code Mapping</div>
+    <div class="mapping-row"><span class="mapping-math">Covariance Matrix S</span><span class="mapping-arrow">→</span><span class="mapping-desc"><code>S = (X_centered.T @ X_centered) / n</code></span></div>
+    <div class="mapping-row"><span class="mapping-math">Eigendecomposition</span><span class="mapping-arrow">→</span><span class="mapping-desc"><code>eigenvalues, eigenvectors = np.linalg.eigh(S)</code></span></div>
+    <div class="mapping-row"><span class="mapping-math">Project to k dims</span><span class="mapping-arrow">→</span><span class="mapping-desc"><code>X_pca = X_centered @ eigenvectors[:, -k:]</code></span></div>
+    <div class="mapping-row"><span class="mapping-math">Explained Variance</span><span class="mapping-arrow">→</span><span class="mapping-desc"><code>pca.explained_variance_ratio_</code> — from sklearn PCA</span></div>
+  </div>
+
+  <div class="block">
+    <div class="block-label project">Step 2 — Practical Project</div>
+    <p><strong>Project: Face Image Compressor & Visualizer</strong></p>
+    <div class="genius-steps">
+      <div class="genius-step"><div class="genius-num">1</div><p><strong>Scratch:</strong> Implement PCA in NumPy — center the data, compute the covariance matrix, run <code>np.linalg.eigh()</code>, sort eigenvectors by descending eigenvalue, project data onto top-k components.</p></div>
+      <div class="genius-step"><div class="genius-num">2</div><p><strong>Library:</strong> Replicate with <code>sklearn.decomposition.PCA(n_components=k)</code>. Plot the explained variance curve (scree plot).</p></div>
+      <div class="genius-step"><div class="genius-num">3</div><p><strong>Real Dataset:</strong> Apply to the Olivetti Faces dataset (<code>sklearn.datasets.fetch_olivetti_faces</code>). Compress to 2D for visualization, then compress to 50D and feed into logistic regression. Compare accuracy vs. full 4096-feature model.</p></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label functions">Required Functions / Tools</div>
+    <div class="fn-item">
+      <div class="fn-name">np.linalg.eigh()</div>
+      <div class="fn-sub">Syntax</div>
+      <div class="code-block">eigenvalues, eigenvectors = <span class="code-key">np.linalg.eigh</span>(a)</div>
+      <div class="fn-sub">Example (unrelated)</div>
+      <div class="code-block">S = np.array([[4, 2], [2, 3]])  <span class="code-comment"># symmetric matrix</span>
+vals, vecs = np.linalg.eigh(S)
+<span class="code-comment"># vals sorted ascending, vecs are column eigenvectors</span></div>
+    </div>
+    <div class="fn-item">
+      <div class="fn-name">sklearn PCA</div>
+      <div class="fn-sub">Syntax</div>
+      <div class="code-block"><span class="code-key">from</span> sklearn.decomposition <span class="code-key">import</span> PCA
+pca = PCA(n_components=<span class="code-val">50</span>)
+X_reduced = pca.fit_transform(X)
+pca.explained_variance_ratio_</div>
+      <div class="fn-sub">Example (unrelated)</div>
+      <div class="code-block">pca = PCA(n_components=<span class="code-val">2</span>)
+X_2d = pca.fit_transform(wine.data)
+<span class="code-comment"># Reduce 13-feature wine data to 2D for plotting</span></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label understand">What You Must Understand</div>
+    <ul>
+      <li>PCA does NOT select features — it creates entirely new ones (linear combinations). You lose interpretability.</li>
+      <li>PCA is unsupervised — it does not use the labels y. It only looks at the structure of X.</li>
+      <li>You must center data (subtract mean) before PCA. Scaling (StandardScaler) is often also needed if features have different units.</li>
+      <li>The scree plot (explained variance vs. components) tells you where diminishing returns kick in — that's your k.</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-label connects">How This Connects</div>
+    <p><strong>Previous:</strong> PCA uses the covariance matrix introduced in Stage 1 (EDA) — now formalized with eigendecomposition.</p>
+    <p><strong>Next:</strong> SVMs (Days 41–47) work natively in high dimensions and use a completely different strategy for high-D data — hyperplane-based separation, not dimension reduction. Comparing PCA+LogReg vs. SVM will be instructive.</p>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════
+     STAGE 7
+══════════════════════════════════════════════════════ -->
+<section class="stage">
+  <div class="stage-header">
+    <div class="stage-timeframe">Days 41–47</div>
+    <h2>Support Vector Machines</h2>
+    <div class="difficulty">
+      <div class="difficulty-bar">
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip active"></div>
+        <div class="difficulty-pip"></div>
+        <div class="difficulty-pip"></div>
+        <div class="difficulty-pip"></div>
+      </div>
+      7/10 — Geometric intuition + constrained optimization
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label preview">Step 0 — Preview</div>
+    <p>You will build a classifier that works well on a handwritten digit recognition task — specifically distinguishing two digits — even though the data lives in 784-dimensional space (28×28 pixel images). SVMs find the single "widest road" (maximum margin hyperplane) between two classes, with a clever trick to handle non-linearly-separable data via kernel functions.</p>
+  </div>
+
+  <div class="block">
+    <div class="block-label math">Step 1 — Math Preparation</div>
+    <p><strong>Sources: MML Ch. 12.1–12.4 (SVM), Ch. 3.1–3.3 (Norms, Distances), Ch. 7.2 (Constrained Optimization)</strong></p>
+    <ul>
+      <li><strong>Separating Hyperplane:</strong> wᵀx + b = 0 defines a decision boundary. The margin is 2/‖w‖ — maximizing the margin means minimizing ‖w‖. <span class="pdf-ref">§12.1</span></li>
+      <li><strong>Support Vectors:</strong> The data points that lie exactly on the margin boundaries. Only these points determine the hyperplane — all others are irrelevant. <span class="pdf-ref">§12.2</span></li>
+      <li><strong>Soft Margin (C parameter):</strong> Allows some misclassification. High C = strict margin (possible overfit); low C = wide margin (possible underfit). <span class="pdf-ref">§12.3, Soft margin §12.3</span></li>
+      <li><strong>Kernel Trick:</strong> k(xᵢ, xⱼ) = φ(xᵢ)ᵀφ(xⱼ) — computes dot products in a high-dimensional space without actually going there. RBF kernel: k(x,z) = exp(−‖x−z‖²/2σ²). <span class="pdf-ref">§12.4</span></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-label mapping">Math → Code Mapping</div>
+    <div class="mapping-row"><span class="mapping-math">Margin = 2/‖w‖</span><span class="mapping-arrow">→</span><span class="mapping-desc">SVM's objective: minimize <code>0.5 * np.dot(w, w)</code> subject to constraints</span></div>
+    <div class="mapping-row"><span class="mapping-math">Support Vectors</span><span class="mapping-arrow">→</span><span class="mapping-desc"><code>svm.support_vectors_</code> — inspect which training points "matter"</span></div>
+    <div class="mapping-row"><span class="mapping-math">RBF Kernel</span><span class="mapping-arrow">→</span><span class="mapping-desc"><code>SVC(kernel='rbf', gamma=0.1)</code> — handles non-linear boundaries</span></div>
+    <div class="mapping-row"><span class="mapping-math">C parameter</span><span class="mapping-arrow">→</span><span class="mapping-desc"><code>SVC(C=1.0)</code> — tune with cross-validation</span></div>
+  </div>
+
+  <div class="block">
+    <div class="block-label project">Step 2 — Practical Project</div>
+    <p><strong>Project: MNIST Digit Classifier (Binary, then Multi-class)</strong></p>
+    <div class="genius-steps">
+      <div class="genius-step"><div class="genius-num">1</div><p><strong>Scratch:</strong> Implement a hard-margin linear SVM using quadratic programming (use <code>cvxpy</code> or <code>scipy.optimize</code>). This is for understanding — solve the dual problem for a tiny 2D dataset and visualize the support vectors and margin.</p></div>
+      <div class="genius-step"><div class="genius-num">2</div><p><strong>Library:</strong> Use <code>sklearn.svm.SVC</code> with linear kernel, then RBF kernel. Compare decision boundaries.</p></div>
+      <div class="genius-step"><div class="genius-num">3</div><p><strong>Real Dataset:</strong> Apply to MNIST (digits 0 vs 1). Use <code>GridSearchCV</code> to tune C and gamma. Report test accuracy and show which support vectors are used.</p></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label functions">Required Functions / Tools</div>
+    <div class="fn-item">
+      <div class="fn-name">SVC with GridSearchCV</div>
+      <div class="fn-sub">Syntax</div>
+      <div class="code-block"><span class="code-key">from</span> sklearn.model_selection <span class="code-key">import</span> GridSearchCV
+<span class="code-key">from</span> sklearn.svm <span class="code-key">import</span> SVC
+param_grid = {<span class="code-val">"C"</span>: [<span class="code-val">0.1</span>,<span class="code-val">1</span>,<span class="code-val">10</span>], <span class="code-val">"gamma"</span>: [<span class="code-val">0.01</span>,<span class="code-val">0.1</span>,<span class="code-val">1</span>]}
+grid = GridSearchCV(SVC(kernel=<span class="code-val">"rbf"</span>), param_grid, cv=<span class="code-val">5</span>)
+grid.fit(X_train, y_train)
+grid.best_params_</div>
+      <div class="fn-sub">Example (unrelated)</div>
+      <div class="code-block">param_grid = {<span class="code-val">"max_depth"</span>: [<span class="code-val">2</span>,<span class="code-val">4</span>,<span class="code-val">6</span>]}
+grid = GridSearchCV(DecisionTreeClassifier(), param_grid, cv=<span class="code-val">3</span>)
+grid.fit(X, y)
+<span class="code-comment"># grid.best_estimator_ is the best model</span></div>
+    </div>
+    <div class="fn-item">
+      <div class="fn-name">svm.support_vectors_</div>
+      <div class="fn-sub">Syntax</div>
+      <div class="code-block">model = SVC().fit(X, y)
+model.support_vectors_  <span class="code-comment"># array of support vector coordinates</span>
+model.support_          <span class="code-comment"># indices of support vectors in X</span></div>
+      <div class="fn-sub">Example (unrelated)</div>
+      <div class="code-block">X_tiny = np.array([[1,2],[2,3],[3,1],[4,4],[5,5]])
+y_tiny = np.array([0,0,0,1,1])
+svc = SVC(kernel=<span class="code-val">"linear"</span>).fit(X_tiny, y_tiny)
+<span class="code-key">print</span>(svc.support_vectors_)  <span class="code-comment"># points closest to boundary</span></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label understand">What You Must Understand</div>
+    <ul>
+      <li>SVMs are memory-efficient at prediction time — only support vectors are stored, not the full training set.</li>
+      <li>Kernel selection is domain-dependent: RBF is the safest default, but polynomial kernels can work well for structured data.</li>
+      <li>SVMs scale poorly (O(n²) to O(n³) in training) — on large datasets (>100K samples), use LinearSVC or logistic regression instead.</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-label connects">How This Connects</div>
+    <p><strong>Previous:</strong> PCA reduced dimensions; SVMs embrace high dimensions. Both are tackling the curse of dimensionality from different angles.</p>
+    <p><strong>Next:</strong> Neural Networks (Day 48) generalize the linear model (from Stage 2) by stacking many nonlinear transformations — everything you've learned about forward passes, gradient descent, and loss functions is the direct foundation.</p>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════
+     STAGE 8 — NN START
+══════════════════════════════════════════════════════ -->
+<section class="stage nn-start">
+  <div class="stage-header">
+    <div class="stage-timeframe nn-label">⚡ Days 48–63 — NEURAL NETWORKS BEGIN HERE</div>
+    <h2>Feedforward Neural Networks</h2>
+    <div class="difficulty">
+      <div class="difficulty-bar">
+        <div class="difficulty-pip active high"></div>
+        <div class="difficulty-pip active high"></div>
+        <div class="difficulty-pip active high"></div>
+        <div class="difficulty-pip active high"></div>
+        <div class="difficulty-pip active high"></div>
+        <div class="difficulty-pip active high"></div>
+        <div class="difficulty-pip active high"></div>
+        <div class="difficulty-pip active high"></div>
+        <div class="difficulty-pip"></div>
+        <div class="difficulty-pip"></div>
+      </div>
+      8/10 — Requires mastery of all previous stages
+    </div>
+  </div>
+
+  <div class="nn-banner">
+    <div class="nn-banner-icon">🔴</div>
+    <div class="nn-banner-text">
+      <strong>Neural Network Threshold — Day 48</strong>
+      <p>All prerequisites must be complete before starting this stage. If you have not built gradient descent from scratch (Stage 4), do not proceed. Backpropagation is gradient descent applied recursively through a chain of functions.</p>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label preview">Step 0 — Preview</div>
+    <p>You will build a neural network from scratch that classifies all 10 MNIST handwritten digits (0–9) with >95% accuracy. Unlike logistic regression which applies one linear transformation and a sigmoid, a neural network applies multiple transformations in sequence — each layer extracts more abstract features. You'll implement forward pass, backward pass (backpropagation), and training loop by hand.</p>
+  </div>
+
+  <div class="block">
+    <div class="block-label math">Step 1 — Math Preparation</div>
+    <p><strong>Sources: MML Ch. 5.6 (Backpropagation & Automatic Differentiation), Ch. 5.2–5.3 (Gradients of Vector-Valued Functions), Ch. 7.1 (Gradient Descent)</strong></p>
+    <ul>
+      <li><strong>Composition of Functions (Chain Rule):</strong> If L = f(g(h(x))), then dL/dx = dL/df · df/dg · dg/dh · dh/dx. Neural networks are precisely such compositions. Backprop applies this recursively from output to input. <span class="pdf-ref">§5.6</span></li>
+      <li><strong>Jacobian Matrix:</strong> For a vector-valued function f: Rⁿ → Rᵐ, the Jacobian J is an m×n matrix of partial derivatives. The gradient of a vector-valued layer is a Jacobian. <span class="pdf-ref">§5.3</span></li>
+      <li><strong>Forward Pass:</strong> a⁽ˡ⁾ = σ(W⁽ˡ⁾a⁽ˡ⁻¹⁾ + b⁽ˡ⁾) — each layer applies a weight matrix, adds bias, then applies a nonlinear activation. <span class="pdf-ref">§5.6</span></li>
+      <li><strong>Backward Pass (Backpropagation):</strong> Propagates the gradient of the loss backwards through each layer using the chain rule. Computes ∂L/∂W and ∂L/∂b for every layer simultaneously. <span class="pdf-ref">§5.6</span></li>
+      <li><strong>Activation Functions:</strong> ReLU: max(0, z) — sparse activations, does not vanish. Sigmoid: 1/(1+e⁻ᶻ) — used in output layer for binary/probability. Softmax: for multi-class output.</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-label mapping">Math → Code Mapping</div>
+    <div class="mapping-row"><span class="mapping-math">W⁽ˡ⁾a⁽ˡ⁻¹⁾ + b</span><span class="mapping-arrow">→</span><span class="mapping-desc"><code>Z = W @ A_prev + b</code> — linear transformation at layer l</span></div>
+    <div class="mapping-row"><span class="mapping-math">σ(Z)</span><span class="mapping-arrow">→</span><span class="mapping-desc"><code>A = relu(Z)</code> or <code>softmax(Z)</code> — nonlinear activation</span></div>
+    <div class="mapping-row"><span class="mapping-math">Chain Rule ∂L/∂W</span><span class="mapping-arrow">→</span><span class="mapping-desc"><code>dW = dZ @ A_prev.T / m</code> — gradient w.r.t. weights</span></div>
+    <div class="mapping-row"><span class="mapping-math">Chain Rule ∂L/∂A⁽ˡ⁻¹⁾</span><span class="mapping-arrow">→</span><span class="mapping-desc"><code>dA_prev = W.T @ dZ</code> — propagate gradient to previous layer</span></div>
+    <div class="mapping-row"><span class="mapping-math">Weight Update</span><span class="mapping-arrow">→</span><span class="mapping-desc"><code>W -= lr * dW</code> — same gradient descent as Stage 4, applied to every layer</span></div>
+  </div>
+
+  <div class="block">
+    <div class="block-label project">Step 2 — Practical Project</div>
+    <p><strong>Project: MNIST 10-Class Neural Network</strong></p>
+    <div class="genius-steps">
+      <div class="genius-step"><div class="genius-num">1</div><p><strong>Scratch:</strong> Implement a 2-hidden-layer neural network (784→128→64→10) using only NumPy. Implement forward pass, softmax + cross-entropy loss, full backpropagation, and mini-batch gradient descent. Target: >92% test accuracy.</p></div>
+      <div class="genius-step"><div class="genius-num">2</div><p><strong>Library:</strong> Replicate using PyTorch (preferred) or Keras. Define the model with <code>nn.Linear</code> layers, use <code>nn.CrossEntropyLoss</code>, and train with <code>optim.Adam</code>. Target: >98% test accuracy.</p></div>
+      <div class="genius-step"><div class="genius-num">3</div><p><strong>Real Dataset:</strong> Apply to the full 70K-sample MNIST dataset. Add dropout for regularization. Log training vs. validation loss per epoch. Identify and visualize where the model makes mistakes (confusion matrix per class).</p></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label functions">Required Functions / Tools</div>
+    <div class="fn-item">
+      <div class="fn-name">torch.nn.Linear</div>
+      <div class="fn-sub">Syntax</div>
+      <div class="code-block"><span class="code-key">import</span> torch.nn <span class="code-key">as</span> nn
+layer = nn.Linear(in_features=<span class="code-val">784</span>, out_features=<span class="code-val">128</span>)</div>
+      <div class="fn-sub">Example (unrelated)</div>
+      <div class="code-block">layer = nn.Linear(<span class="code-val">10</span>, <span class="code-val">3</span>)  <span class="code-comment"># 10 inputs → 3 outputs</span>
+x = torch.randn(<span class="code-val">5</span>, <span class="code-val">10</span>)    <span class="code-comment"># batch of 5</span>
+layer(x).shape             <span class="code-comment"># → torch.Size([5, 3])</span></div>
+    </div>
+    <div class="fn-item">
+      <div class="fn-name">optimizer.zero_grad() / loss.backward() / optimizer.step()</div>
+      <div class="fn-sub">Syntax (The Training Loop)</div>
+      <div class="code-block"><span class="code-key">for</span> epoch <span class="code-key">in</span> range(n_epochs):
+    optimizer.zero_grad()   <span class="code-comment"># ALWAYS first — clears gradient buffers</span>
+    outputs = model(X_batch)
+    loss = criterion(outputs, y_batch)
+    loss.backward()         <span class="code-comment"># computes all gradients (backprop)</span>
+    optimizer.step()        <span class="code-comment"># updates weights</span></div>
+      <div class="fn-sub">Example (unrelated)</div>
+      <div class="code-block">model = nn.Linear(<span class="code-val">2</span>, <span class="code-val">1</span>)
+optimizer = torch.optim.SGD(model.parameters(), lr=<span class="code-val">0.01</span>)
+x = torch.tensor([[<span class="code-val">1.0</span>,<span class="code-val">2.0</span>]])
+y = torch.tensor([[<span class="code-val">3.0</span>]])
+optimizer.zero_grad()
+loss = nn.MSELoss()(model(x), y)
+loss.backward()
+optimizer.step()</div>
+    </div>
+    <div class="fn-item">
+      <div class="fn-name">nn.Dropout</div>
+      <div class="fn-sub">Syntax</div>
+      <div class="code-block">self.dropout = nn.Dropout(p=<span class="code-val">0.3</span>)  <span class="code-comment"># 30% of neurons zeroed randomly</span>
+x = self.dropout(x)               <span class="code-comment"># apply in forward()</span></div>
+      <div class="fn-sub">Example (unrelated)</div>
+      <div class="code-block">drop = nn.Dropout(p=<span class="code-val">0.5</span>)
+x = torch.ones(<span class="code-val">4</span>, <span class="code-val">10</span>)
+drop.train()   <span class="code-comment"># dropout only active in training mode</span>
+drop(x)        <span class="code-comment"># ~50% of values become 0</span></div>
+    </div>
+    <div class="fn-item">
+      <div class="fn-name">DataLoader</div>
+      <div class="fn-sub">Syntax</div>
+      <div class="code-block"><span class="code-key">from</span> torch.utils.data <span class="code-key">import</span> DataLoader, TensorDataset
+dataset = TensorDataset(X_tensor, y_tensor)
+loader = DataLoader(dataset, batch_size=<span class="code-val">64</span>, shuffle=<span class="code-val">True</span>)</div>
+      <div class="fn-sub">Example (unrelated)</div>
+      <div class="code-block">X = torch.randn(<span class="code-val">1000</span>, <span class="code-val">5</span>)
+y = torch.randint(<span class="code-val">0</span>, <span class="code-val">3</span>, (<span class="code-val">1000</span>,))
+loader = DataLoader(TensorDataset(X, y), batch_size=<span class="code-val">32</span>, shuffle=<span class="code-val">True</span>)
+<span class="code-key">for</span> X_batch, y_batch <span class="code-key">in</span> loader:
+    <span class="code-key">pass</span>  <span class="code-comment"># 32 random samples per iteration</span></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label understand">What You Must Understand</div>
+    <ul>
+      <li>Why <code>optimizer.zero_grad()</code> must be called every iteration — PyTorch accumulates gradients by default; forgetting this causes incorrect updates.</li>
+      <li>Why deep networks need nonlinear activations — stacking linear layers (without ReLU/sigmoid) collapses to a single linear transformation, no matter how many layers you add.</li>
+      <li>The train/eval mode distinction: dropout and batch normalization behave differently during training vs. inference. Always call <code>model.eval()</code> before predicting.</li>
+      <li>Backpropagation is not magic — it is the chain rule applied to a computational graph. Every operation (matmul, relu, softmax) has a known gradient formula.</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-label connects">How This Connects</div>
+    <p><strong>Previous:</strong> Neural Networks are the generalization of everything before: linear model (Stage 2) + sigmoid (Stage 3) + gradient descent (Stage 4) + multiple stacked layers. Nothing is new — only the depth.</p>
+    <p><strong>Next:</strong> The capstone (Days 64–70) chains all components into a real-world, end-to-end pipeline with preprocessing, model selection, evaluation, and deployment-ready output.</p>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════
+     STAGE 9 — CAPSTONE
+══════════════════════════════════════════════════════ -->
+<section class="stage">
+  <div class="stage-header">
+    <div class="stage-timeframe">Days 64–70</div>
+    <h2>Capstone: End-to-End ML Pipeline</h2>
+    <div class="difficulty">
+      <div class="difficulty-bar">
+        <div class="difficulty-pip active high"></div>
+        <div class="difficulty-pip active high"></div>
+        <div class="difficulty-pip active high"></div>
+        <div class="difficulty-pip active high"></div>
+        <div class="difficulty-pip active high"></div>
+        <div class="difficulty-pip active high"></div>
+        <div class="difficulty-pip active high"></div>
+        <div class="difficulty-pip active high"></div>
+        <div class="difficulty-pip active high"></div>
+        <div class="difficulty-pip"></div>
+      </div>
+      9/10 — Full complexity, no guardrails
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label preview">Step 0 — Preview</div>
+    <p>You will build a <strong>complete, production-style ML pipeline</strong> on a Kaggle-style tabular dataset (e.g., customer churn prediction). This includes raw data ingestion → EDA → feature engineering → preprocessing → model selection (compare Logistic Regression, Random Forest, and a Neural Network) → hyperparameter tuning → test evaluation → final report. No helper code provided.</p>
+  </div>
+
+  <div class="block">
+    <div class="block-label math">Step 1 — Math Preparation</div>
+    <p><strong>Sources: MML Ch. 8.6 (Model Selection), Ch. 8.2 (Empirical Risk Minimization)</strong></p>
+    <ul>
+      <li><strong>Cross-Validation:</strong> Partition data into k folds. Train on k−1, evaluate on 1. Rotate k times. Average performance. Gives a reliable estimate of generalization error without touching the test set. <span class="pdf-ref">§8.2.4</span></li>
+      <li><strong>Bias-Variance Tradeoff:</strong> Total Error = Bias² + Variance + Irreducible Noise. Simple models have high bias (underfit); complex models have high variance (overfit). Cross-validation helps find the sweet spot. <span class="pdf-ref">§8.2.2</span></li>
+      <li><strong>Regularization:</strong> Add a penalty term to the loss (L1 = Lasso, L2 = Ridge) to prevent overfitting by keeping weights small. <span class="pdf-ref">§8.2.3</span></li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-label project">Step 2 — Practical Project</div>
+    <p><strong>Project: Customer Churn Prediction — Full Pipeline</strong></p>
+    <div class="genius-steps">
+      <div class="genius-step"><div class="genius-num">1</div><p><strong>Scratch:</strong> Write a k-fold cross-validation loop in NumPy/Pandas without sklearn's CV tools. Evaluate your Stage 3 logistic regression implementation on each fold.</p></div>
+      <div class="genius-step"><div class="genius-num">2</div><p><strong>Library:</strong> Build an <code>sklearn.pipeline.Pipeline</code> that chains StandardScaler → model. Use <code>cross_val_score</code> to compare Logistic Regression, Random Forest, and an MLP (MultiLayerPerceptron classifier). Select best model.</p></div>
+      <div class="genius-step"><div class="genius-num">3</div><p><strong>Real Dataset:</strong> Apply the full pipeline to the Telco Customer Churn dataset (Kaggle). Tune the best model with GridSearchCV. Report final test metrics: Accuracy, AUC-ROC, F1. Produce a feature importance chart. Save the model with <code>joblib</code>.</p></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label functions">Required Functions / Tools</div>
+    <div class="fn-item">
+      <div class="fn-name">sklearn Pipeline</div>
+      <div class="fn-sub">Syntax</div>
+      <div class="code-block"><span class="code-key">from</span> sklearn.pipeline <span class="code-key">import</span> Pipeline
+pipe = Pipeline([
+    (<span class="code-val">"scaler"</span>, StandardScaler()),
+    (<span class="code-val">"model"</span>, LogisticRegression())
+])
+pipe.fit(X_train, y_train)
+pipe.predict(X_test)</div>
+      <div class="fn-sub">Example (unrelated)</div>
+      <div class="code-block">pipe = Pipeline([
+    (<span class="code-val">"pca"</span>, PCA(n_components=<span class="code-val">10</span>)),
+    (<span class="code-val">"svm"</span>, SVC())
+])
+pipe.fit(X_train, y_train)
+<span class="code-comment"># PCA + SVM in one object — no data leakage risk</span></div>
+    </div>
+    <div class="fn-item">
+      <div class="fn-name">roc_auc_score()</div>
+      <div class="fn-sub">Syntax</div>
+      <div class="code-block"><span class="code-key">from</span> sklearn.metrics <span class="code-key">import</span> roc_auc_score
+roc_auc_score(y_true, y_prob)  <span class="code-comment"># y_prob = predicted probabilities</span></div>
+      <div class="fn-sub">Example (unrelated)</div>
+      <div class="code-block">y_true = [<span class="code-val">0</span>, <span class="code-val">1</span>, <span class="code-val">1</span>, <span class="code-val">0</span>, <span class="code-val">1</span>]
+y_prob = [<span class="code-val">0.1</span>, <span class="code-val">0.9</span>, <span class="code-val">0.8</span>, <span class="code-val">0.3</span>, <span class="code-val">0.7</span>]
+roc_auc_score(y_true, y_prob)  <span class="code-comment"># → 1.0 (perfect)</span></div>
+    </div>
+    <div class="fn-item">
+      <div class="fn-name">joblib.dump()</div>
+      <div class="fn-sub">Syntax</div>
+      <div class="code-block"><span class="code-key">import</span> joblib
+joblib.dump(model, <span class="code-val">"model.pkl"</span>)
+loaded = joblib.load(<span class="code-val">"model.pkl"</span>)</div>
+      <div class="fn-sub">Example (unrelated)</div>
+      <div class="code-block">rf = RandomForestClassifier().fit(X, y)
+joblib.dump(rf, <span class="code-val">"fraud_detector.pkl"</span>)
+<span class="code-comment"># Later — load without retraining:</span>
+rf_loaded = joblib.load(<span class="code-val">"fraud_detector.pkl"</span>)</div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="block-label understand">What You Must Understand</div>
+    <ul>
+      <li>Never fit the scaler on the test set — it must be fit on training data only and then transform test data. <code>Pipeline</code> enforces this automatically.</li>
+      <li>AUC-ROC measures ranking quality — it is threshold-independent and far more informative than accuracy on imbalanced data.</li>
+      <li>Cross-validation scores use the training set only. The final test set is touched exactly once, at the very end. Touching it during tuning is data leakage.</li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <div class="block-label connects">How This Connects</div>
+    <p><strong>Previous:</strong> Integrates every stage — EDA → regression → classification → optimization → trees → dimensionality → neural nets — into one system.</p>
+    <p><strong>Next:</strong> You are now ready for specialization: Computer Vision (CNNs), Natural Language Processing (Transformers), or Reinforcement Learning. The foundation is complete.</p>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════
+     NEURAL NETWORK READINESS CHECK
+══════════════════════════════════════════════════════ -->
+<div class="readiness">
+  <h3>⚡ Neural Network Readiness Check</h3>
+  <p style="color:var(--text-muted); margin-bottom:24px; font-size:14px;">Before you begin Day 48, verify you can do ALL of the following without looking anything up. If you cannot, go back to the relevant stage.</p>
+
+  <div class="readiness-grid">
+    <div class="readiness-item"><span class="check">✓</span> Implement linear regression from scratch using the Normal Equation in NumPy</div>
+    <div class="readiness-item"><span class="check">✓</span> Explain why MSE is not used as a loss for classification</div>
+    <div class="readiness-item"><span class="check">✓</span> Write the sigmoid function and binary cross-entropy loss from scratch</div>
+    <div class="readiness-item"><span class="check">✓</span> Implement a gradient descent loop with learning rate sweep</div>
+    <div class="readiness-item"><span class="check">✓</span> Explain what a partial derivative and a gradient vector are</div>
+    <div class="readiness-item"><span class="check">✓</span> Build a Random Forest classifier and extract feature importances</div>
+    <div class="readiness-item"><span class="check">✓</span> Implement PCA from scratch using eigendecomposition</div>
+    <div class="readiness-item"><span class="check">✓</span> Use GridSearchCV to tune a model's hyperparameters</div>
+    <div class="readiness-item"><span class="check">✓</span> Build an sklearn Pipeline that prevents data leakage</div>
+    <div class="readiness-item"><span class="check">✓</span> Explain the chain rule and why it enables backpropagation</div>
+    <div class="readiness-item"><span class="check">✓</span> Interpret a confusion matrix and compute precision, recall, F1 manually</div>
+    <div class="readiness-item"><span class="check">✓</span> Explain the bias-variance tradeoff with a concrete example</div>
+  </div>
+
+  <div class="readiness-cta">
+    ✦ You will begin Neural Networks on Day 48. &nbsp;|&nbsp; PyTorch is the recommended framework.
+  </div>
+</div>
+
+</body>
+</html>
