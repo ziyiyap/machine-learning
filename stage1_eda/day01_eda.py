@@ -58,5 +58,3 @@ df = df.drop(columns=["Name","Ticket"])
 
 y = df["Survived"]
 X = df.drop(columns=["Survived"])
-
-print(X.shape, X.dtypes)
