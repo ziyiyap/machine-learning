@@ -58,7 +58,7 @@ theta = np.linalg.inv(X_train.T @ X_train) @ X_train.T @ y_train
 
 
 y_pred = X_test @ theta
-
+print(X_test, "*", theta)
 mse = np.mean((y_test-y_pred)**2)
 rmse = np.sqrt(mse)
 
