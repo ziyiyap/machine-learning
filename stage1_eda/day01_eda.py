@@ -31,7 +31,6 @@ cov_matrix = np.cov(df_numeric,rowvar=False)
 corr_matrix = df.corr(numeric_only=True)
 plt.figure(figsize=(10,8))
 sns.heatmap(corr_matrix,annot=True,cmap="coolwarm") # cool -> warm , annot shows the values of the squares
-plt.show()
 #Handle Missing Values
 
 median_age = df["Age"].median()

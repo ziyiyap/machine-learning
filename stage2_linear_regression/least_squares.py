@@ -7,7 +7,7 @@ try:
 except ValueError:
     gradient,intercept= 1,0
 
-domain = 50
+domain = 1000
 xlist = [i for i in range(0,domain, max(int(domain/50),1))]
 
 ylist = [float(gradient)*x + float(intercept) for x in xlist]
