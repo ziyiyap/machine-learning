@@ -12,13 +12,11 @@ pass_rate = [
     0, 1, 0, 1, 0, 1, 1, 0, 1, 0,
     0, 1, 1, 0, 1, 1, 0, 0, 1, 1
 ]
-
 X = np.array(student_marks).reshape((len(student_marks),1))
 X_mean = X.mean()
 X_std = X.std()
 
 X = (X - X_mean) / X_std
-print(X)
 y_actual = np.array(pass_rate).reshape((len(pass_rate),1))
 
 index = np.arange(len(X))
@@ -73,7 +71,7 @@ y_sort = np.sort(y_actual, axis=0)
 z = X_sort @ w + b
 y_pred = sigmoid(z)
 
-v = 40
+v = 100
 print(predict((v - X_mean) / X_std, w, b))
 
 plt.scatter(X_sort, y_sort, color='red')
