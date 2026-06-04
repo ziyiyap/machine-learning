@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import os
 from pathlib import Path
+np.set_printoptions(suppress=True)
 
 BASE_DIR = Path(__file__).parent
 os.chdir(BASE_DIR)
@@ -37,20 +38,27 @@ X_train, X_test = X_shuffled[:split], X_shuffled[split:]
 y_train , y_test = y_shuffled[:split], y_shuffled[split:]
 
 class NeuralNetwork:
-    def __init__(self, i, o, hidden, lr = 0.001, epochs = 1000):
+    def __init__(self, i, o, hidden, lr = 0.01, epochs = 1000):
         self.input = i
         self.output = o
         self.hidden = hidden
         self.lr = lr
         self.epochs = epochs
+    def normalized_test_data(self, X, mean, stdv):
+        return (X - mean) / stdv 
     def predict(self, X, W_input, b_input, W_output, b_output):
-        Z_input = np.dot(W_input, X.T) + b_input
+        Z_input = X @ W_input.T + b_input.T
 
         atv = self.relu(Z_input)
-        y_pred = np.dot(W_output, atv) + b_output
+        y_pred = atv @ W_output.T + b_output.T
 
-        y_prob = self.softmax(y_pred).T #transpose back to [prob prob prob]
+        y_prob = self.softmax(y_pred)
         return y_prob
+    
+    def predict_class(self, y_prob, idx_class):
+        max_indices = np.argmax(y_prob, axis = 1)
+        pred_label = np.array([idx_class[i] for i in max_indices])
+        return pred_label.reshape(-1,1)
     
     def loss(self, y_actual, y_pred):
         index = np.argmax(y_actual, axis=1, keepdims=False)
@@ -65,10 +73,10 @@ class NeuralNetwork:
         exp = np.exp(y_pred - c)
         return exp / np.sum(exp, axis=1, keepdims=True)
     
-    def compute_weights(self, X, atv, Z, y_actual, y_pred, W_input, W_output):
+    def compute_weights(self, X, atv, Z, y_actual, y_pred, W_output):
         #calc derivative
         d_relu = (Z > 0).astype(float)
-        dW_input = None
+        dW_input =  (X.T @ (((y_pred - y_actual) @ W_output) * d_relu)).T
         db_input = np.sum(((y_pred-y_actual) @ W_output) * d_relu,axis=0,keepdims=True).T
         dW_o =  (y_pred-y_actual).T @ atv
         db_o = np.sum(y_pred- y_actual, axis=0, keepdims=True).T
@@ -128,8 +136,9 @@ class NeuralNetwork:
             # Each row == each sample, 3 Output nodes.
             # ###
 
-            dW_input, db_input, dW_output, db_output = self.compute_weights(X, atv, Z_input, y_actual, y_prob, W_input, W_output)
+            dW_input, db_input, dW_output, db_output = self.compute_weights(X, atv, Z_input, y_actual, y_prob, W_output)
 
+            W_input -= self.lr * dW_input
             b_input -= self.lr * db_input
             b_output -= self.lr * db_output
             W_output -= self.lr * dW_output
@@ -138,12 +147,23 @@ class NeuralNetwork:
 
 
 
-
         return W_input, b_input, W_output, b_output
 
 X_train_normalized, mean ,std = normalization(X_train)
 
-NN = NeuralNetwork(2,3, 2)
+NN = NeuralNetwork(2,3, 16)
 W_input, b_input, W_output, b_output = NN.train(X_train_normalized, y_train)
 
-y_pred = NN.predict(X_test, W_input, b_input, W_output, b_output)
+
+
+X_test_normalized = NN.normalized_test_data(X_test, mean, std)
+
+y_pred = NN.predict(X_test_normalized, W_input, b_input, W_output, b_output)
+
+def predict(X, mean, std, W_input, b_input, W_output, b_output):
+    X_normalized = NN.normalized_test_data(X, mean, std)
+    y_pred = NN.predict(X_normalized, W_input, b_input, W_output, b_output)
+    return NN.predict_class(y_pred, idx_class)
+
+data = np.array([[160, 50], [180, 70], [165, 85]])
+print(predict(data, mean, std, W_input, b_input, W_output, b_output))
