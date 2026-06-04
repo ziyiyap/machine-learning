@@ -1,0 +1,388 @@
+Unnamed: 0,date,desc,amount,balance,is_debit,Category
+0,2025-05-17,7-ELEVEN MALAYSIA SDN BHD,3.48,168.65,False,Food & Drinks
+0,2025-05-17,GLADWYN YAU MING RONG,2.0,170.65,True,Transfer
+0,2025-05-25,PT GLOBAL DIGITAL INDOKREASI,17.74,152.91,False,Entertainment
+0,2025-06-08,Lunite Subscription USD 4.99,21.43,131.48,False,Entertainment
+0,2025-06-10,Fund Transfer,9.0,122.48,False,Transfer
+0,2025-06-11,YAP SEAN POH,150.0,272.48,True,Transfer
+0,2025-06-12,Apple Services,22.9,249.58,False,Services
+0,2025-06-12,Fund Transfer,20.0,229.58,False,Transfer
+0,2025-06-15,PT GLOBAL DIGITAL INDOKREASI,16.0,213.58,False,Entertainment
+0,2025-06-19,Fund Transfer,3.0,210.58,False,Transfer
+0,2025-06-20,Fund Transfer,10.0,200.58,False,Transfer
+0,2025-06-21,Fund Transfer,43.7,156.88,False,Transfer
+0,2025-06-21,HOO REE WEN,15.2,172.08,True,Transfer
+0,2025-06-22,Fund Transfer,23.8,148.28,False,Transfer
+0,2025-06-24,LOW ISSAC,13.0,161.28,True,Transfer
+0,2025-06-25,BING XUE KAJANG METRO,14.0,147.28,False,Food & Drinks
+0,2025-06-25,PT GLOBAL DIGITAL INDOKREASI,17.9,129.38,False,Entertainment
+0,2025-06-27,Fund Transfer,7.0,122.38,False,Transfer
+0,2025-06-27,Fund Transfer,6.0,116.38,False,Transfer
+0,2025-06-27,GLADWYN YAU MING RONG,5.5,121.88,True,Transfer
+0,2025-06-27,LEE RU DE,5.5,127.38,True,Transfer
+0,2025-06-30,YAP SEAN POH,100.0,227.38,True,Transfer
+0,2025-07-02,FENSON SEAH BING HAN,5.0,222.38,False,Transfer
+0,2025-07-02,FENSON SEAH BING HAN,5.0,217.38,False,Transfer
+0,2025-07-04,Fund Transfer,38.0,179.38,False,Transfer
+0,2025-07-05,7-ELEVEN MALAYSIA SDN BHD,5.0,174.38,False,Food & Drinks
+0,2025-07-08,Lunite Subscription USD 4.99,21.42,152.96,False,Entertainment
+0,2025-07-09,YAP SEAN POH,50.0,202.96,True,Transfer
+0,2025-07-09,CZIPLEE BOOKS &,35.9,167.06,False,Shops
+0,2025-07-09,return,15.0,152.06,False,Transfer
+0,2025-07-12,LEONG KEAN HOU,8.0,144.06,False,Transfer
+0,2025-07-14,YAP SEAN POH,50.0,194.06,True,Transfer
+0,2025-07-19,CHING YUEN KUAN,11.0,183.06,False,Transfer
+0,2025-07-20,Fund Transfer,4.5,178.56,False,Transfer
+0,2025-07-25,PT GLOBAL DIGITAL INDOKREASI,16.78,161.78,False,Entertainment
+0,2025-08-03,Visa Card,8.0,153.78,False,Services
+0,2025-08-06,Fund Transfer,25.0,128.78,False,Transfer
+0,2025-08-08,Lunite Subscription USD 4.99,21.41,107.37,False,Entertainment
+0,2025-08-09,LOW ISSAC,4.5,102.87,False,Transfer
+0,2025-08-09,7-ELEVEN MALAYSIA SDN BHD,6.5,96.37,False,Food & Drinks
+0,2025-08-11,YAP SEAN POH,35.0,131.37,True,Transfer
+0,2025-08-11,CZIPLEE BOOKS &,31.95,99.42,False,Shops
+0,2025-08-11,Fund Transfer,30.0,69.42,False,Transfer
+0,2025-08-11,YAP SEAN POH,100.0,169.42,True,Transfer
+0,2025-08-13,Fund Transfer,5.95,163.47,False,Transfer
+0,2025-08-15,PT GLOBAL DIGITAL INDOKREASI,16.22,147.25,False,Entertainment
+0,2025-08-16,Fund Transfer,20.3,126.95,False,Transfer
+0,2025-08-16,CZIPLEE BOOKS &,45.5,81.45,False,Shops
+0,2025-08-16,YAP SEAN POH,45.0,126.45,True,Transfer
+0,2025-08-17,GERAI MAKANAN DAN MINUMAN,27.0,99.45,False,Food & Drinks
+0,2025-08-17,Fund Transfer,2.33,97.12,False,Transfer
+0,2025-08-17,Fund Transfer,0.34,96.78,False,Transfer
+0,2025-08-18,LOW ISSAC,9.0,105.78,True,Transfer
+0,2025-08-21,test pad,7.5,98.28,False,Transfer
+0,2025-08-21,Fund Transfer,17.0,81.28,False,Transfer
+0,2025-08-22,Fund Transfer,33.6,47.68,False,Transfer
+0,2025-08-22,Enrich Fitness,7.0,40.68,False,Services
+0,2025-08-22,YAP SEAN POH,7.0,47.68,True,Transfer
+0,2025-08-23,Fund Transfer,3.0,44.68,False,Transfer
+0,2025-09-03,YAP SEAN POH,50.0,94.68,True,Transfer
+0,2025-09-03,Golden Screen Cinemas Sdn Bhd,37.5,57.18,False,Entertainment
+0,2025-09-03,TEOH RUI HANG,12.5,69.68,True,Transfer
+0,2025-09-04,NG MAN FAI,12.5,82.18,True,Transfer
+0,2025-09-04,Golden Screen Cinemas Sdn Bhd,18.5,63.68,False,Entertainment
+0,2025-09-04,Fund Transfer,16.4,47.28,False,Transfer
+0,2025-09-05,FENSON SEAH BING HAN,8.0,39.28,False,Transfer
+0,2025-09-06,7-ELEVEN MALAYSIA SDN BHD,4.1,35.18,False,Food & Drinks
+0,2025-09-06,Payment - TURBO LEARN,30.0,5.18,False,Entertainment
+0,2025-09-08,YAP SEAN POH,100.0,105.18,True,Transfer
+0,2025-09-08,TICKET2U SDN BHD,74.0,31.18,False,Entertainment
+0,2025-09-10,Fund Transfer,20.75,10.43,False,Transfer
+0,2025-09-14,YAP SEAN POH,100.0,110.43,True,Transfer
+0,2025-09-14,LOADED POTATO SUNWAY,35.8,74.63,False,Food & Drinks
+0,2025-09-14,LIEW ZHOU MIIN,18.0,56.63,False,Transfer
+0,2025-09-14,Golden Screen Cinemas Sdn Bhd,43.0,13.63,False,Entertainment
+0,2025-09-14,Payment - MRT-COCHRANE,3.7,9.93,False,Services
+0,2025-09-14,LOW ISSAC,3.7,13.63,True,Transfer
+0,2025-09-18,Fund Transfer,6.3,7.33,False,Transfer
+0,2025-09-18,Fund Transfer,1.2,6.13,False,Transfer
+0,2025-09-20,YAP SEAN POH,20.0,26.13,True,Transfer
+0,2025-09-20,7-ELEVEN MALAYSIA SDN BHD,7.7,18.43,False,Food & Drinks
+0,2025-09-22,Fund Transfer,7.0,11.43,False,Transfer
+0,2025-09-22,NG MAN FAI,3.7,15.13,True,Transfer
+0,2025-09-22,YAP SEAN POH,66.0,81.13,True,Transfer
+0,2025-09-22,TGV,59.5,21.63,False,Entertainment
+0,2025-09-24,Fund Transfer,11.65,9.98,False,Transfer
+0,2025-09-27,TEOH RUI HANG,19.5,29.48,True,Transfer
+0,2025-09-30,ZOE LAI ZI QI,28.0,1.48,False,Transfer
+0,2025-09-30,YAP SEAN POH,28.0,29.48,True,Transfer
+0,2025-09-30,Fund Transfer,28.0,1.48,False,Transfer
+0,2025-10-08,PANG KWAI JIN,10.0,11.48,True,Transfer
+0,2025-10-13,YAP SEAN POH,50.0,61.48,True,Transfer
+0,2025-10-13,CZIPLEE BOOKS &,37.65,23.83,False,Shops
+0,2025-10-13,Fund Transfer,12.34,11.49,False,Transfer
+0,2025-10-18,YAP SEAN POH,50.0,61.49,True,Transfer
+0,2025-10-21,CHANG 41,10.0,51.49,False,Transfer
+0,2025-10-22,Fund Transfer,3.9,47.59,False,Transfer
+0,2025-10-23,Fund Transfer,11.0,36.59,False,Transfer
+0,2025-10-23,Fund Transfer,4.0,32.59,False,Transfer
+0,2025-10-25,7-ELEVEN MALAYSIA SDN BHD,4.9,27.69,False,Food & Drinks
+0,2025-10-29,Payment - MRT-STADIUM KAJANG,10.0,17.69,False,Services
+0,2025-10-30,Fund Transfer,6.0,11.69,False,Transfer
+0,2025-11-01,Fund Transfer,1.25,10.44,False,Transfer
+0,2025-11-06,YAP SEAN POH,100.0,110.44,True,Transfer
+0,2025-11-06,Fund Transfer,10.0,100.44,False,Transfer
+0,2025-11-06,BURGER KING,1.0,99.44,False,Food & Drinks
+0,2025-11-07,Fund Transfer,14.1,85.34,False,Transfer
+0,2025-11-08,xin xin mix rice,9.5,75.84,False,Food & Drinks
+0,2025-11-08,Fund Transfer,50.0,25.84,False,Transfer
+0,2025-11-08,LEE RU DE,50.0,75.84,True,Transfer
+0,2025-11-08,Fund Transfer,4.0,71.84,False,Transfer
+0,2025-11-08,HTFU RESTAURANTS SDN BHD,17.3,54.54,False,Food & Drinks
+0,2025-11-08,HTFU RESTAURANTS SDN BHD,13.8,40.74,False,Food & Drinks
+0,2025-11-08,GLADWYN YAU MING RONG,13.8,54.54,True,Transfer
+0,2025-11-08,POPULAR BOOK CO (M) SB,31.8,22.74,False,Shops
+0,2025-11-08,GLADWYN YAU MING RONG,15.9,38.64,True,Transfer
+0,2025-11-08,Fund Transfer,2.6,36.04,False,Transfer
+0,2025-11-09,Fund Transfer,16.4,19.64,False,Transfer
+0,2025-11-10,YAP SEAN POH,100.0,119.64,True,Transfer
+0,2025-11-10,MI MYA KAY KHAING,12.0,107.64,False,Transfer
+0,2025-11-10,Fund Transfer,4.5,103.14,False,Transfer
+0,2025-11-11,Fund Transfer,8.0,95.14,False,Transfer
+0,2025-11-11,Fund Transfer,7.4,87.74,False,Transfer
+0,2025-11-12,RESTORAN XHF MALA TA,34.39,53.35,False,Food & Drinks
+0,2025-11-13,Fund Transfer,22.0,31.35,False,Transfer
+0,2025-11-15,LOW ISSAC,11.5,42.85,True,Transfer
+0,2025-11-16,YAP SEAN POH,10.0,52.85,True,Transfer
+0,2025-11-16,LUCKY CUP (SG. LONG)-QR,8.0,44.85,False,Food & Drinks
+0,2025-11-17,YAP SEAN POH,100.0,144.85,True,Transfer
+0,2025-11-17,7-ELEVEN MALAYSIA SDN BHD,5.2,139.65,False,Food & Drinks
+0,2025-11-17,Fund Transfer,3.7,135.95,False,Transfer
+0,2025-11-17,CHANG 41,15.0,120.95,False,Transfer
+0,2025-11-17,YAP SEAN POH,10.0,130.95,True,Transfer
+0,2025-11-17,QSR STORES SDN BHD,8.2,122.75,False,Food & Drinks
+0,2025-11-18,7-ELEVEN MALAYSIA SDN BHD,4.4,118.35,False,Food & Drinks
+0,2025-11-18,LOW KAR ZUN,11.0,107.35,False,Transfer
+0,2025-11-20,Seri Mutiara Venture,3.1,104.25,False,Food & Drinks
+0,2025-11-20,GLADWYN YAU MING RONG,1.0,105.25,True,Transfer
+0,2025-11-21,Fund Transfer,10.0,95.25,False,Transfer
+0,2025-11-21,Kajang,16.2,79.05,False,Transfer
+0,2025-11-21,YAP SEAN POH,10.0,89.05,True,Transfer
+0,2025-11-21,QSR STORES SDN BHD,8.2,80.85,False,Food & Drinks
+0,2025-11-22,Fund Transfer,3.7,77.15,False,Transfer
+0,2025-11-22,YAP SIE LOONG,10.0,67.15,False,Transfer
+0,2025-11-23,Thang Khan Hau,9.0,58.15,False,Transfer
+0,2025-11-23,LUCKY CUP (SG. LONG)-QR,8.0,50.15,False,Food & Drinks
+0,2025-11-23,L&L F&B GROUP SDN.BHD.,24.5,25.65,False,Food & Drinks
+0,2025-11-24,YAP SEAN POH,100.0,125.65,True,Transfer
+0,2025-11-24,Fund Transfer,3.7,121.95,False,Transfer
+0,2025-11-24,YAP SIE LOONG,10.0,111.95,False,Transfer
+0,2025-11-24,Fund Transfer,3.2,108.75,False,Transfer
+0,2025-11-24,Fund Transfer,7.0,101.75,False,Transfer
+0,2025-11-25,Alqadr Enterprise,4.0,97.75,False,Food & Drinks
+0,2025-11-25,YAP SIE LOONG,10.0,87.75,False,Transfer
+0,2025-11-25,MJ SESE ENTERPRISE,8.0,79.75,False,Food & Drinks
+0,2025-11-26,CHUAH LING FANG,4.0,75.75,False,Transfer
+0,2025-11-26,NORIZAN BINTI AB WAHID,4.0,71.75,False,Transfer
+0,2025-11-29,NANYANG RECIPES,7.5,64.25,False,Food & Drinks
+0,2025-11-29,GLADWYN YAU MING RONG,1.3,65.55,True,Transfer
+0,2025-12-01,YAP SEAN POH,100.0,165.55,True,Transfer
+0,2025-12-01,KANTIN SJKC YU HUA,5.0,160.55,False,Food & Drinks
+0,2025-12-01,Fund Transfer,5.8,154.75,False,Transfer
+0,2025-12-01,Fund Transfer,10.0,144.75,False,Transfer
+0,2025-12-02,Alqadr Enterprise,4.6,140.15,False,Food & Drinks
+0,2025-12-02,Fund Transfer,12.0,128.15,False,Transfer
+0,2025-12-02,MI MYA KAY KHAING,10.0,118.15,False,Transfer
+0,2025-12-02,Fund Transfer,6.5,111.65,False,Transfer
+0,2025-12-03,Fund Transfer,3.7,107.95,False,Transfer
+0,2025-12-03,YAP SIE LOONG,10.0,97.95,False,Transfer
+0,2025-12-03,LOW ISSAC,2.5,100.45,True,Transfer
+0,2025-12-04,KANTIN SJKC YU HUA,2.0,98.45,False,Food & Drinks
+0,2025-12-04,CHANG 41,10.0,88.45,False,Transfer
+0,2025-12-04,Fund Transfer,3.7,84.75,False,Transfer
+0,2025-12-05,Kajang,18.4,66.35,False,Transfer
+0,2025-12-05,GLADWYN YAU MING RONG,3.4,69.75,True,Transfer
+0,2025-12-06,Fund Transfer,17.5,52.25,False,Transfer
+0,2025-12-07,L&L F&B GROUP SDN.BHD.,17.1,35.15,False,Food & Drinks
+0,2025-12-08,YAP SEAN POH,100.0,135.15,True,Transfer
+0,2025-12-08,Fund Transfer,3.7,131.45,False,Transfer
+0,2025-12-09,MI MYA KAY KHAING,12.0,119.45,False,Transfer
+0,2025-12-10,Alqadr Enterprise,5.2,114.25,False,Food & Drinks
+0,2025-12-10,Fund Transfer,11.0,103.25,False,Transfer
+0,2025-12-11,GLADWYN YAU MING RONG,18.2,121.45,True,Transfer
+0,2025-12-11,Tealive Bandar Sg. L,18.2,103.25,False,Food & Drinks
+0,2025-12-12,Fund Transfer,3.7,99.55,False,Transfer
+0,2025-12-12,BING XUE KAJANG METRO,3.0,96.55,False,Food & Drinks
+0,2025-12-12,Fund Transfer,10.0,86.55,False,Transfer
+0,2025-12-13,YAP SIEW PING,100.0,186.55,True,Transfer
+0,2025-12-13,Fund Transfer,25.0,161.55,False,Transfer
+0,2025-12-14,RESTORAN SAN SHUI,6.5,155.05,False,Food & Drinks
+0,2025-12-14,JUSTIN WONG KHONG JOON,22.0,133.05,False,Transfer
+0,2025-12-14,LUCKY CUP (SG. LONG)-QR,2.0,131.05,False,Food & Drinks
+0,2025-12-14,LOW ISSAC,10.0,141.05,True,Transfer
+0,2025-12-14,LUCKY CUP (SG. LONG)-QR,4.5,136.55,False,Food & Drinks
+0,2025-12-14,FUN FUN KITCHEN,36.0,100.55,False,Food & Drinks
+0,2025-12-15,Fund Transfer,6.3,94.25,False,Transfer
+0,2025-12-15,WOO JING HAO,3.1,97.35,True,Transfer
+0,2025-12-15,LIEW KIM CHING,10.0,87.35,False,Transfer
+0,2025-12-15,YAP SEAN POH,100.0,187.35,True,Transfer
+0,2025-12-15,7-ELEVEN MALAYSIA SDN BHD,2.2,185.15,False,Food & Drinks
+0,2025-12-16,PT GLOBAL DIGITAL INDOKREASI,15.2,169.95,False,Entertainment
+0,2025-12-17,Fund Transfer,32.0,137.95,False,Transfer
+0,2025-12-17,Fund Transfer,6.0,131.95,False,Transfer
+0,2025-12-17,BURGER KING,53.7,78.25,False,Food & Drinks
+0,2025-12-18,DAIKI SHOKUDO,39.7,38.55,False,Food & Drinks
+0,2025-12-18,Bingxue Sg Long,7.5,31.05,False,Food & Drinks
+0,2025-12-20,LOW ISSAC,56.0,87.05,True,Transfer
+0,2025-12-20,GLADWYN YAU MING RONG,2.0,89.05,True,Transfer
+0,2025-12-21,Nasi Lemak by Chef B,9.0,80.05,False,Food & Drinks
+0,2025-12-21,CHIT CHIT CHAM CHAM,4.2,75.85,False,Food & Drinks
+0,2025-12-22,YAP SEAN POH,100.0,175.85,True,Transfer
+0,2025-12-22,TEXAS CHICKEN (MALAYSIA),20.0,155.85,False,Food & Drinks
+0,2025-12-22,RM1 Cashback with Min. Spend,1.0,156.85,True,Services
+0,2025-12-22,TEXAS CHICKEN (MALAYSIA),19.5,137.35,False,Food & Drinks
+0,2025-12-22,LOW ISSAC,6.5,143.85,True,Transfer
+0,2025-12-22,GLADWYN YAU MING RONG,6.5,150.35,True,Transfer
+0,2025-12-22,TGV,47.0,103.35,False,Entertainment
+0,2025-12-23,Fund Transfer,3.2,100.15,False,Transfer
+0,2025-12-23,Payment - MRT-STADIUM KAJANG,5.0,95.15,False,Services
+0,2025-12-23,KGB - Pavilion,41.3,53.85,False,Food & Drinks
+0,2025-12-23,Payment - MRT-BUKIT BINTANG,4.1,49.75,False,Services
+0,2025-12-23,TGV,31.0,18.75,False,Entertainment
+0,2025-12-24,YAP SEAN POH,50.0,68.75,True,Transfer
+0,2025-12-24,YUAN FONG 5 KOPITIAM,41.55,27.2,False,Food & Drinks
+0,2025-12-24,TGV CINEMAS SDN BHD,8.0,19.2,False,Entertainment
+0,2025-12-24,Payment - MRT-MALURI KUALA,4.2,15.0,False,Services
+0,2025-12-30,Fund Transfer,7.0,8.0,False,Transfer
+0,2026-01-04,YAP SEAN POH,100.0,108.0,True,Transfer
+0,2026-01-04,Payment - SHOPEEPAY,11.86,96.14,False,Services
+0,2026-01-07,LUCKY CUP (SG. LONG)-QR,8.0,88.14,False,Food & Drinks
+0,2026-01-07,BTS BDR SG LONG,11.8,76.34,False,Services
+0,2026-01-07,CHONG LI WAY,5.9,82.24,True,Transfer
+0,2026-01-08,Tealive Bandar Sg. L,10.2,72.04,False,Food & Drinks
+0,2026-01-09,Fund Transfer,3.7,68.34,False,Transfer
+0,2026-01-09,A&W-KAJANG 0103,14.0,54.34,False,Food & Drinks
+0,2026-01-10,VK PAN MEE,9.0,45.34,False,Food & Drinks
+0,2026-01-11,YAP SEAN POH,100.0,145.34,True,Transfer
+0,2026-01-11,Payment - SHOPEEPAY,39.2,106.14,False,Services
+0,2026-01-12,7-ELEVEN MALAYSIA SDN BHD,4.1,102.04,False,Food & Drinks
+0,2026-01-13,Fund Transfer,6.8,95.24,False,Transfer
+0,2026-01-13,TEOH RUI HANG,3.7,98.94,True,Transfer
+0,2026-01-13,ORIGINAL THAI TEA,7.0,91.94,False,Food & Drinks
+0,2026-01-13,POON SAU YING,3.0,88.94,False,Transfer
+0,2026-01-14,MYNEWS,5.0,83.94,False,Shops
+0,2026-01-15,7-ELEVEN MALAYSIA SDN BHD,4.1,79.84,False,Food & Drinks
+0,2026-01-16,7-ELEVEN MALAYSIA SDN BHD,3.0,76.84,False,Food & Drinks
+0,2026-01-17,BTS BDR SG LONG,2.0,74.84,False,Services
+0,2026-01-18,YAP SEAN POH,100.0,174.84,True,Transfer
+0,2026-01-18,Payment - GRAB RIDES-EC,30.0,144.84,False,Services
+0,2026-01-18,Payment - GRAB RIDES-EC,8.0,136.84,False,Services
+0,2026-01-18,Payment - NAKNAK@THE EXCH,35.8,101.04,False,Food & Drinks
+0,2026-01-18,LOW ISSAC,39.0,140.04,True,Transfer
+0,2026-01-19,7-ELEVEN MALAYSIA SDN BHD,4.1,135.94,False,Food & Drinks
+0,2026-01-20,7-ELEVEN MALAYSIA SDN BHD,4.1,131.84,False,Food & Drinks
+0,2026-01-21,Alqadr Enterprise,7.0,124.84,False,Food & Drinks
+0,2026-01-21,7-ELEVEN MALAYSIA SDN BHD,4.1,120.74,False,Food & Drinks
+0,2026-01-21,HOME TASTE 21 FOOD AND,7.2,113.54,False,Food & Drinks
+0,2026-01-21,PT GLOBAL DIGITAL INDOKREASI,14.0,99.54,False,Entertainment
+0,2026-01-21,PT GLOBAL DIGITAL INDOKREASI,14.94,84.6,False,Entertainment
+0,2026-01-22,7-ELEVEN MALAYSIA SDN BHD,5.9,78.7,False,Food & Drinks
+0,2026-01-23,7-ELEVEN MALAYSIA SDN BHD,4.1,74.6,False,Food & Drinks
+0,2026-01-24,Payment - SHOPEEPAY,12.76,61.84,False,Services
+0,2026-01-25,NINJAZ SUNGAI LONG,23.0,38.84,False,Entertainment
+0,2026-01-25,Payment - CRUNCHYROLL.COM,4.0,34.84,False,Entertainment
+0,2026-01-25,Reversal - CRUNCHYROLL.COM,4.0,38.84,False,Entertainment
+0,2026-01-26,Fund Transfer,7.0,31.84,False,Transfer
+0,2026-01-26,7-ELEVEN MALAYSIA SDN BHD,3.9,27.94,False,Food & Drinks
+0,2026-01-27,YAP SEAN POH,50.0,77.94,True,Transfer
+0,2026-01-27,7-ELEVEN MALAYSIA SDN BHD,4.6,73.34,False,Food & Drinks
+0,2026-01-28,FRESH (T2-UFC),6.0,67.34,False,Food & Drinks
+0,2026-01-29,South Korea 5G eSIM TikTok,13.9,53.44,False,Services
+0,2026-02-01,Payment - CRUNCHYROLL.COM,11.0,42.44,False,Entertainment
+0,2026-02-07,YAP SEAN POH,100.0,142.44,True,Transfer
+0,2026-02-07,WOO JING HAO,15.0,157.44,True,Transfer
+0,2026-02-07,LEE RU DE,12.0,169.44,True,Transfer
+0,2026-02-07,KWAN YU XUAN,20.0,189.44,True,Food & Drinks
+0,2026-02-07,The Xtone Bakery,72.0,117.44,False,Food & Drinks
+0,2026-02-07,LOW ISSAC,8.0,125.44,True,Transfer
+0,2026-02-07,Fund Transfer,3.3,122.14,False,Transfer
+0,2026-02-07,LEE RU DE,4.0,126.14,True,Transfer
+0,2026-02-07,Payment - GRAB RIDES-EC,14.0,112.14,False,Services
+0,2026-02-13,SKY 1 FOOD CORNER SDN. BH,4.2,107.94,False,Food & Drinks
+0,2026-02-13,Thang Khan Hau,9.5,98.44,False,Transfer
+0,2026-02-13,PYI CHIT,7.0,91.44,False,Transfer
+0,2026-02-13,QL MAXINCOME SDN BHD,5.8,85.64,False,Food & Drinks
+0,2026-02-13,CHAN SOK FONG,10.0,95.64,True,Transfer
+0,2026-02-16,Fund Transfer,10.0,85.64,False,Transfer
+0,2026-02-16,LEE RU YUAN,20.0,105.64,True,Transfer
+0,2026-02-16,W WAFFLE,7.0,98.64,False,Food & Drinks
+0,2026-02-17,TEOH RUI HANG,5.0,103.64,True,Transfer
+0,2026-02-17,Wuthering Wave,22.9,80.74,False,Entertainment
+0,2026-02-20,MARIATI BINTI SEMAN,1.0,79.74,False,Transfer
+0,2026-02-22,HEXTAR LUCKIN (M) SDN BHD,15.04,64.7,False,Food & Drinks
+0,2026-02-22,CHAN SOK FONG,15.0,79.7,True,Transfer
+0,2026-02-26,Fund Transfer,7.0,72.7,False,Transfer
+0,2026-02-27,ENRICH SG LONG FITNES,3.3,69.4,False,Services
+0,2026-03-04,Fund Transfer,7.0,62.4,False,Transfer
+0,2026-03-05,ENRICH SG LONG FITNES,14.0,48.4,False,Services
+0,2026-03-05,YAP SEAN POH,14.0,62.4,True,Transfer
+0,2026-03-06,Payment - Shopee MY Marketplace,25.03,37.37,False,Services
+0,2026-03-09,YAP SEAN POH,50.0,87.37,True,Transfer
+0,2026-03-09,Steam Purchase,49.37,38.0,False,Entertainment
+0,2026-03-10,Fund Transfer,7.0,31.0,False,Transfer
+0,2026-03-13,YAP SEAN POH,30.0,61.0,True,Transfer
+0,2026-03-14,Fund Transfer,23.0,38.0,False,Transfer
+0,2026-03-14,MYNEWS,2.4,35.6,False,Shops
+0,2026-03-14,grab,2.0,33.6,False,Transfer
+0,2026-03-15,CHAN SOK FONG,20.0,53.6,True,Transfer
+0,2026-03-15,Payment - Shopee MY Marketplace,47.5,6.1,False,Services
+0,2026-03-16,CHAN SOK FONG,30.0,36.1,True,Transfer
+0,2026-03-26,ENRICH SG LONG FITNES,7.0,29.1,False,Services
+0,2026-03-28,Fund Transfer,7.0,22.1,False,Transfer
+0,2026-03-29,ENRICH SG LONG FITNES,14.0,8.1,False,Services
+0,2026-03-29,YAP SEAN POH,100.0,108.1,True,Transfer
+0,2026-03-31,Fund Transfer,26.5,81.6,False,Transfer
+0,2026-03-31,Mixue Sunway Velocity,14.0,67.6,False,Food & Drinks
+0,2026-03-31,LOW ISSAC,4.7,72.3,True,Transfer
+0,2026-04-03,Fund Transfer,10.0,62.3,False,Transfer
+0,2026-04-03,MIXUE DAMAI PERDANA,10.5,51.8,False,Food & Drinks
+0,2026-04-03,GLADWYN YAU MING RONG,5.0,56.8,True,Transfer
+0,2026-04-03,Payment - Shopee MY Marketplace,46.36,10.44,False,Services
+0,2026-04-04,Payment - CRUNCHYROLL.COM,4.0,6.44,False,Entertainment
+0,2026-04-04,Reversal - CRUNCHYROLL.COM,4.0,10.44,False,Entertainment
+0,2026-04-05,ENRICH SG LONG FITNES,7.0,3.44,False,Services
+0,2026-04-08,YAP SEAN POH,30.0,33.44,True,Transfer
+0,2026-04-08,MRT BUKIT DUKUNG,10.0,23.44,False,Services
+0,2026-04-08,JIYOTEA,8.5,14.94,False,Food & Drinks
+0,2026-04-08,Fund Transfer,3.0,11.94,False,Transfer
+0,2026-04-09,Credit / Debit Card,41.0,52.94,True,Services
+0,2026-04-09,haidilao,45.0,7.94,False,Food & Drinks
+0,2026-04-10,YAP SEAN POH,50.0,57.94,True,Transfer
+0,2026-04-10,Fund Transfer,8.0,49.94,False,Transfer
+0,2026-04-10,Fund Transfer,20.0,29.94,False,Transfer
+0,2026-04-10,CHAN SOK FONG,20.0,49.94,True,Transfer
+0,2026-04-12,Apple Services,12.9,37.04,False,Services
+0,2026-04-13,CHAN SOK FONG,50.0,87.04,True,Transfer
+0,2026-04-15,YAP SEAN POH,42.0,129.04,True,Transfer
+0,2026-04-15,Fund Transfer,21.0,108.04,False,Transfer
+0,2026-04-17,CHAN SOK FONG,250.0,358.04,True,Transfer
+0,2026-04-17,Fund Transfer,250.0,108.04,False,Transfer
+0,2026-04-18,Credit / Debit Card,500.0,608.04,True,Services
+0,2026-04-18,KPP 01,500.0,108.04,False,Services
+0,2026-04-18,YAP SEAN POH,50.0,158.04,True,Transfer
+0,2026-04-18,UNISEX DRIVING ACADEMY NILAI,3.2,154.84,False,Services
+0,2026-04-18,Fund Transfer,10.0,144.84,False,Transfer
+0,2026-04-21,LUCKY CUP (SG. LONG)-QR,13.0,131.84,False,Food & Drinks
+0,2026-04-21,KWAN YU XUAN,7.0,138.84,True,Food & Drinks
+0,2026-04-21,FUQI TRADING,10.0,128.84,False,Food & Drinks
+0,2026-04-24,Fund Transfer,19.9,108.94,False,Transfer
+0,2026-04-26,FP-AEON,9.9,99.04,False,Shops
+0,2026-04-26,YAP SEAN POH,10.0,109.04,True,Transfer
+0,2026-04-27,Fund Transfer,7.0,102.04,False,Transfer
+0,2026-05-01,Tealive,8.5,93.54,False,Food & Drinks
+0,2026-05-01,NEXT GEN THEMEPARK (1U) S,10.0,83.54,False,Entertainment
+0,2026-05-01,NEXT GEN THEMEPARK (1U) S,1.0,82.54,False,Entertainment
+0,2026-05-01,NEXT GEN THEMEPARK (1U) S,1.0,81.54,False,Entertainment
+0,2026-05-01,NEXT GEN THEMEPARK (1U) S,1.0,80.54,False,Entertainment
+0,2026-05-01,NEXT GEN THEMEPARK (1U) S,1.0,79.54,False,Entertainment
+0,2026-05-01,NEXT GEN THEMEPARK (1U) S,1.0,78.54,False,Entertainment
+0,2026-05-01,NEXT GEN THEMEPARK (1U) S,1.0,77.54,False,Entertainment
+0,2026-05-02,YAP SEAN POH,50.0,127.54,True,Transfer
+0,2026-05-02,Fund Transfer,5.0,122.54,False,Transfer
+0,2026-05-02,Fund Transfer,23.0,99.54,False,Transfer
+0,2026-05-04,Payment - Shopee MY Marketplace,5.19,94.35,False,Services
+0,2026-05-05,Fund Transfer,13.8,80.55,False,Transfer
+0,2026-05-06,Fund Transfer,21.1,59.45,False,Transfer
+0,2026-05-06,dih,14.3,45.15,False,Transfer
+0,2026-05-06,YAP SEAN POH,100.0,145.15,True,Transfer
+0,2026-05-07,TEO CHOI KING,20.0,125.15,False,Transfer
+0,2026-05-07,WOO JING HAO,19.5,144.65,True,Transfer
+0,2026-05-07,NEW TOWN KUM HIONG CAFE,15.0,129.65,False,Food & Drinks
+0,2026-05-07,Fund Transfer,3.4,126.25,False,Transfer
+0,2026-05-07,Fund Transfer,4.0,122.25,False,Transfer
+0,2026-05-07,Fund Transfer,20.3,101.95,False,Transfer
+0,2026-05-07,Fund Transfer,6.4,95.55,False,Transfer
+0,2026-05-08,Fund Transfer,14.5,81.05,False,Transfer
+0,2026-05-08,YAP ZHI SHEN,14.0,67.05,False,Transfer
+0,2026-05-09,CHONG WAN TENG,20.0,47.05,False,Transfer
+0,2026-05-09,TEOH RUI HANG,10.0,57.05,True,Transfer
+0,2026-05-09,Fund Transfer,3.4,53.65,False,Transfer
+0,2026-05-09,LEE SHONG YUAN,20.0,33.65,False,Transfer
+0,2026-05-11,YAP SEAN POH,50.0,83.65,True,Transfer
+0,2026-05-11,Fund Transfer,9.0,74.65,False,Transfer
+0,2026-05-11,Fund Transfer,56.0,18.65,False,Transfer
+0,2026-05-12,YAP SEAN POH,30.0,48.65,True,Transfer
+0,2026-05-12,Fund Transfer,40.0,8.65,False,Transfer
+0,2026-05-12,Payment - GRAB RIDES-EC,7.0,1.65,False,Services

@@ -53,23 +53,26 @@ class NeuralNetwork:
         return y_prob
     
     def loss(self, y_actual, y_pred):
-        return - np.sum(y_actual * np.log(y_pred), axis=0)
+        index = np.argmax(y_actual, axis=1, keepdims=False)
+        y_pred_one_hot = y_pred[np.arange(len(index)), index]
+        return - np.sum(np.log(y_pred_one_hot), axis=0)
 
     def relu(self, Z):
         return np.maximum(0, Z)
     
     def softmax(self, y_pred):
-        c = np.max(y_pred, axis=0, keepdims=True)
+        c = np.max(y_pred, axis=1, keepdims=True)
         exp = np.exp(y_pred - c)
-        return exp / np.sum(exp, axis=0, keepdims=True)
+        return exp / np.sum(exp, axis=1, keepdims=True)
     
-    def compute_weights(self, X, Z, y_actual, y_pred, W_output):
-        #calc derivativev
+    def compute_weights(self, X, atv, Z, y_actual, y_pred, W_input, W_output):
+        #calc derivative
         d_relu = (Z > 0).astype(float)
         dW_input = None
-        db_input = None
-        dW_o = None
-        db_o = None
+        db_input = np.sum(((y_pred-y_actual) @ W_output) * d_relu,axis=0,keepdims=True).T
+        dW_o =  (y_pred-y_actual).T @ atv
+        db_o = np.sum(y_pred- y_actual, axis=0, keepdims=True).T
+
         return dW_input, db_input, dW_o, db_o
 
     def train(self, X, y_actual):
@@ -78,30 +81,61 @@ class NeuralNetwork:
 
         W_output = np.random.normal(loc=0, scale = 1/np.sqrt(self.hidden), size=(self.output, self.hidden))
         b_output = np.zeros((self.output, 1))
-        ###
+        ### Input weights Ex: w12 means first input node to second hidden node
         # [[w11 w12]
         #  [w21 w22]
         #   ... 
         #  [wn1 wn2]]
-        # Number of inputs = 2 
+        # Weights to sum to first hidden node == first column, Weights to sum to second hidden node== column 2, Number of inputs = 2 
         # ###
-        for epoch in range(self.epochs):
-            Z_input = np.dot(W_input, X.T) + b_input
 
+        ###
+        # Output weights (i,j), where i = hidden node, j = output node
+        # [[w(1,1), w(2,1)]
+        #  [w(1,2), w(2,2)]
+        #  [w(1,3), w(2,3)]]
+        # ###
+        for epoch in range(1,self.epochs+1):
+
+            ###
+            # Shape of X:
+            # [[Height1 Weight1]
+            #  [Height2 Weight2]
+            #  [...     ...]
+            #  [Height(n) Weight(n)]]###
+
+
+            Z_input = X @ W_input.T + b_input.T
+            ###
+            # Shape of Z:
+            # (i, j), where i = sample, j = hidden node
+            #
+            # [[z(1,1), z(1, 2)],
+            #  [z(2,1), z(2,2)]]
+            # ###
             atv = self.relu(Z_input)
-            y_pred = np.dot(W_output, atv) + b_output
+            y_pred = atv @ W_output.T + b_output.T
 
-            y_prob = self.softmax(y_pred).T #transpose back to [prob prob prob]
+            y_prob = self.softmax(y_pred)
 
-            dW_input, db_input, dW_output, db_output = self.compute_weights(X, Z_input, y_actual, y_prob, W_output)
+            ###
+            # Shape y_prob/y_pred:
+            # [[O1, O2, O3]
+            #  [O1, O2, O3]
+            #  [ ... ]
+            #  [O1, O2, O3]]
+            # 
+            # Each row == each sample, 3 Output nodes.
+            # ###
 
-            W_input -= self.lr * dW_input
+            dW_input, db_input, dW_output, db_output = self.compute_weights(X, atv, Z_input, y_actual, y_prob, W_input, W_output)
+
             b_input -= self.lr * db_input
-            W_output -= self.lr * dW_output.T
-            b_output -= self.lr * db_output.T
-
+            b_output -= self.lr * db_output
+            W_output -= self.lr * dW_output
             if epoch % 100 == 0:
                 print(f"Epoch: {epoch} Loss: {self.loss(y_actual, y_prob)}")
+
 
 
 
@@ -109,10 +143,7 @@ class NeuralNetwork:
 
 X_train_normalized, mean ,std = normalization(X_train)
 
-NN = NeuralNetwork(2,3, 10)
+NN = NeuralNetwork(2,3, 2)
 W_input, b_input, W_output, b_output = NN.train(X_train_normalized, y_train)
 
 y_pred = NN.predict(X_test, W_input, b_input, W_output, b_output)
-
-print(y_pred)
-print(y_test)
